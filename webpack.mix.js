@@ -1,3 +1,4 @@
+const { copyDirectory } = require('laravel-mix');
 const mix = require('laravel-mix');
 
 /*
@@ -12,8 +13,15 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .vue(3)
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ])
-    .version();
+    .vue()
+    .postCss('resources/css/style.css', 'public/css')
+    .postCss('resources/css/app.css', 'public/css', [require('tailwindcss'), require('autoprefixer')])
+    .alias({
+        '@': 'resources/js',
+    });
+
+mix.copyDirectory('resources/assets/img', 'public/assets/img')
+
+if (mix.inProduction()) {
+    mix.version();
+}
