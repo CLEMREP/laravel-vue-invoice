@@ -28,19 +28,19 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/clients', function () {
         return Inertia::render('Dashboard/Pages/Clients/Index');
     })->name('clients');
-    
+
     Route::get('/clients/nouveau-client', function () {
         return Inertia::render('Dashboard/Pages/Clients/Create');
     })->name('create.clients');
-    
+
     Route::get('/factures', function () {
-        return Inertia::render('Dashboard/Pages/Factures');
+        return Inertia::render('Dashboard/Pages/Factures/Index');
     })->name('factures');
-    
+
     Route::get('/devis', function () {
-        return Inertia::render('Dashboard/Pages/Devis');
+        return Inertia::render('Dashboard/Pages/Devis/Index');
     })->name('devis');
-    
+
     Route::get('/compte', function () {
         return Inertia::render('Dashboard/Pages/Compte/Compte');
     })->name('compte');

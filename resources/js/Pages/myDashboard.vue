@@ -1,5 +1,6 @@
 <script setup>
 import DashboardLayout from '@/Pages/Dashboard/Layouts/DashboardLayout.vue';
+import DashboardData from "@/Pages/Dashboard/Components/DashboardData";
 import { Head, Link } from '@inertiajs/inertia-vue3';
 </script>
 
@@ -7,56 +8,11 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
     <Head title="Dashboard" />
 
     <DashboardLayout>
-        <div id="reste" class="absolute main-content ml-16 mt-16 overflow-y-auto">
+        <div class="absolute main-content ml-16 mt-16 overflow-y-auto">
             <div class="my-4 sm:my-12 mx-8 2xl:mx-auto 2xl:w-9/12">
 
                 <!-- DASHBOARD DATA -->
-                <div class="flex flex-col xl:flex-row justify-between w-full">
-                    <div class="w-full mt-4 flex items-center justify-between p-6 bg-white rounded-xl shadow-md lg:mr-6">
-                        <div>
-                            <span class="text-sm font-semibold uppercase text-gray-400">Total</span><br>
-                            <!-- <span class="text-xs font-semibold uppercase">01 janvier 2022 - 31 décembre 2022</span> -->
-                            <h1 class="text-2xl font-bold text-indigo-400">6 750,99€</h1>
-                        </div>
-                        <div>
-                            <i class='bx bx-wallet bx-lg md:ml-16'></i>
-                        </div>
-                    </div>
-
-                    <div class="w-full mt-4 flex items-center justify-between p-6 bg-white rounded-xl shadow-md lg:mr-6">
-                        <div>
-                            <span class="text-sm font-semibold uppercase text-gray-400">Factures</span>
-                            <h1 class="text-2xl font-bold text-indigo-400">1</h1>
-                        </div>
-                        <div>
-                            <!-- <i class='bx bxs-bank bx-lg md:ml-16'></i> -->
-                            <i class='bx bx-file bx-lg md:ml-16'></i>
-                        </div>
-                    </div>
-
-                    <div class="w-full mt-4 flex items-center justify-between p-6 bg-white rounded-xl shadow-md lg:mr-6">
-                        <div>
-                            <span class="text-sm font-semibold uppercase text-gray-400">Devis</span>
-                            <h1 class="text-2xl font-bold text-indigo-400">2</h1>
-                        </div>
-                        <div>
-                            <!-- <i class='bx bx-donate-heart bx-lg md:ml-16'></i> -->
-                            <i class='bx bx-file-blank bx-lg md:ml-16'></i>
-                        </div>
-                    </div>
-
-                    <div class="w-full mt-4 flex items-center justify-between p-6 bg-white rounded-xl shadow-md">
-                        <div>
-                            <span class="text-sm font-semibold uppercase text-gray-400">Clients</span>
-                            <h1 class="text-2xl font-bold text-indigo-400">2</h1>
-                        </div>
-                        <div>
-                            <!-- <i class='bx bx-credit-card-alt bx-lg md:ml-16'></i> -->
-                            <i class='bx bx-user bx-lg md:ml-16'></i>
-                        </div>
-                    </div>
-
-                </div>
+                <DashboardData/>
                 <!-- DASHBOARD DATA END -->
 
                 <div>
@@ -118,7 +74,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                                                     <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider pointer-events-none text-right pl-0"></th></tr>
                                                 </thead>
                                                 <tbody>
-                            
+
                                                 </tbody>
                                             </table>
                                             <div class="text-center text-gray-500 pb-2 flex h-[160px] justify-center items-center flex-col">
@@ -139,5 +95,5 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
         </div>
 
     </DashboardLayout>
-    
+
 </template>

@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 </script>
 
 <template>
-    <Head title="Devis" />
+    <Head title="Factures" />
 
     <DashboardLayout>
         <div id="reste" class="absolute main-content ml-16 mt-16 overflow-y-auto">
@@ -14,16 +14,22 @@ import { Head } from '@inertiajs/inertia-vue3';
                     <div class="grid grid-cols-1 gap-6 mt-14">
 
                         <div class="due-invoices">
-                            <div class="relative z-10 flex items-center justify-between mb-3">
-                                <h6 class="mb-0 text-lg sm:text-xl font-semibold leading-normal">Mes devis</h6>
-                                <button class="inline-flex whitespace-nowrap items-center border font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-sm leading-5 rounded-md border-transparent shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-primary-500" type="submit">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -ml-1 mr-2" fill="#FFF" viewBox="0 0 24 24">
-                                        <path d="M13 14v-3h3V9h-3V6h-2v3H8v2h3v3z"></path>
-                                        <path d="M20 22V4c0-1.103-.897-2-2-2H6c-1.103 0-2 .897-2 2v18l8-4.572L20 22zM6 10V4h12v14.553l-6-3.428-6 3.428V10z"></path>
-                                    </svg>
-                                    Nouveau devis
-                                </button>
+                            <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between mb-3">
+                                <h6 class="mb-2 sm:mb-0 text-lg sm:text-xl font-semibold leading-normal">Mes Factures</h6>
+                                <div class="flex flex-col sm:flex-row justify-center sm:justify-end">
+                                    <button class="mb-2 sm:mb-0 sm:mr-3 inline-flex whitespace-nowrap items-center border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-2 text-sm leading-4 rounded-md border-transparent border-solid border-indigo-500 font-normal transition ease-in-out duration-150 text-indigo-500 hover:bg-indigo-200 shadow-inner" style="">
+                                        Filtres
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5 ml-2 -mr-1 h-5 w-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="inline-flex whitespace-nowrap items-center border font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-sm leading-5 rounded-md border-transparent shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-primary-500" type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -ml-1 mr-2" fill="#FFF" viewBox="0 0 24 24">
+                                            <path d="M13 9h-2v3H8v2h3v3h2v-3h3v-2h-3z"></path><path d="M20 5h-8.586L9.707 3.293A.996.996 0 0 0 9 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2zM4 19V7h16l.002 12H4z"></path>
+                                        </svg>
+                                        Nouvelle facture
+                                    </button>
+                                </div>
                             </div>
                             <div class="flex flex-col">
                                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 pb-4 lg:pb-0">
@@ -58,5 +64,5 @@ import { Head } from '@inertiajs/inertia-vue3';
         </div>
 
     </DashboardLayout>
-    
+
 </template>

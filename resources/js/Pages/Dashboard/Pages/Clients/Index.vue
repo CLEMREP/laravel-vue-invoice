@@ -14,11 +14,17 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                     <div class="grid grid-cols-1 gap-6 mt-14">
 
                         <div class="due-invoices">
-                            <div class="relative z-10 flex items-center justify-between mb-3">
-                                <h6 class="mb-0 text-lg sm:text-xl font-semibold leading-normal">Mes clients</h6>
-                                <div class="flex flex-row justify-center sm:justify-end">
+                            <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between mb-3">
+                                <h6 class="mb-2 sm:mb-0 text-lg sm:text-xl font-semibold leading-normal">Mes clients</h6>
+                                <div class="flex flex-col sm:flex-row justify-center sm:justify-end">
+                                    <button class="mb-2 sm:mb-0 sm:mr-3 inline-flex whitespace-nowrap items-center border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-2 text-sm leading-4 rounded-md border-transparent border-solid border-indigo-500 font-normal transition ease-in-out duration-150 text-indigo-500 hover:bg-indigo-200 shadow-inner" style="">
+                                        Filtres
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5 ml-2 -mr-1 h-5 w-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                                        </svg>
+                                    </button>
                                     <Link :href="route('create.clients')">
-                                        <button class="inline-flex whitespace-nowrap items-center border font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-sm leading-5 rounded-md border-transparent shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-primary-500" type="submit">
+                                        <button class="w-full inline-flex whitespace-nowrap items-center border font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-sm leading-5 rounded-md border-transparent shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-primary-500" type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -ml-1 mr-2" fill="#FFF" viewBox="0 0 24 24">
                                                 <path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a3.91 3.91 0 0 0 4 4 3.91 3.91 0 0 0 4-4 3.91 3.91 0 0 0-4-4 3.91 3.91 0 0 0-4 4zm6 0a1.91 1.91 0 0 1-2 2 1.91 1.91 0 0 1-2-2 1.91 1.91 0 0 1 2-2 1.91 1.91 0 0 1 2 2zM4 18a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3v1h2v-1a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v1h2z"></path>
                                             </svg>
@@ -60,5 +66,5 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
         </div>
 
     </DashboardLayout>
-    
+
 </template>
