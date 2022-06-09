@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -24,9 +25,17 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/connexion', function () {
+    return Inertia::render('Auth/Connexion',
+    [
+        'canResetPassword' => Route::has('password.request'),
+        'status' => session('status'),
+    ]);
+})->name('connexion');
+
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/clients', function () {
-        return Inertia::render('Dashboard/Pages/Clients/Index');
+        return Inertia::render('Dashboard/Pages/Clients/Index', ['users' => DB::table('users')->paginate(10), 'addresses' => DB::table('addresses')->paginate(10)]);
     })->name('clients');
 
     Route::get('/clients/nouveau-client', function () {

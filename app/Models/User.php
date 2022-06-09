@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,9 +19,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
         'email',
+        'phone',
         'password',
+        'admin',
+        'company_name',
+        'company_email',
+        'company_phone',
+        'company_website',
+        'company_siret',
+        'address_id',
     ];
 
     /**
@@ -40,5 +50,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'admin' => 'boolean',
+        'address_id' => 'integer',
     ];
+
+    public function address() : BelongsTo
+    {
+        return $this->belongsTo(Address::class);
+    }
 }

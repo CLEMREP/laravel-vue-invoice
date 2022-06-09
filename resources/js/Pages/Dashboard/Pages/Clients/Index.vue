@@ -1,6 +1,13 @@
 <script setup>
 import DashboardLayout from '@/Pages/Dashboard/Layouts/DashboardLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
+
+defineProps({
+    users: Object,
+    addresses: Object,
+})
+
+
 </script>
 
 <template>
@@ -38,23 +45,54 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                         <div class="relative overflow-hidden bg-white border-b border-gray-200 shadow-md sm:rounded-lg">
                                             <table class="min-w-full divide-y divide-gray-200">
-                                                <thead class="bg-gray-50"><tr>
-                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Émise le</th>
-                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Client</th>
-                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Montant dû</th>
-                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider pointer-events-none text-right pl-0"></th></tr>
+                                                <thead class="bg-gray-50">
+                                                    <tr>
+                                                        <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Prénom</th>
+                                                        <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Nom</th>
+                                                        <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">E-Mail</th>
+                                                        <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Ville</th>
+                                                        <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Société</th>
+                                                        <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">SIRET</th>
+                                                        <th class="whitespace-nowrap px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Actions</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
 
+                                                    <tr v-for="user in users.data" :key="user.id" class="bg-white">
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ user.firstname }}</td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ user.lastname }}</td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ user.email }}</td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ user.address_id }}</td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ user.company_name }}</td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ user.company_siret }}</td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap text-right text-sm font-medium pl-0">
+                                                            <div class="relative inline-block h-full text-left">
+                                                                <button id="headlessui-menu-button-5" type="button" aria-haspopup="true" aria-expanded="false" class="focus:outline-none">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5 text-gray-500">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+                                                                    </svg>
+                                                                </button>
+                                                                <div class="z-10 w-56" style="position: fixed; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(166px, 743px, 0px);" data-popper-placement="bottom-end" data-popper-reference-hidden="">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
                                                 </tbody>
                                             </table>
-                                            <div class="text-center text-gray-500 pb-2 flex h-[160px] justify-center items-center flex-col">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5 w-6 h-6 text-gray-400">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                                    <span class="block mt-1">Pas de résultats</span>
+
+                                        </div>
+
+                                        <div class="mt-3">
+                                            <div class="flex">
+                                                <template v-for="link in users.links" >
+                                                    <Link v-if="link.url" :href="link.url" v-html="link.label" class="relative inline-flex items-center px-4 py-2 mr-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" />
+                                                </template>
                                             </div>
                                         </div>
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>

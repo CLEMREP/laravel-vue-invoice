@@ -31,8 +31,8 @@
                     <template #content>
                         <div class="text-base text-black list-none bg-white rounded divide-y divide-gray-100">
                             <div class="py-3 px-4">
-                                <span class="block text-sm text-black">Clément REPEL</span>
-                                <span class="block text-sm font-medium text-gray-500 truncate">contact@clement-repel.fr</span>
+                                <span class="block text-sm text-black">{{ $page.props.auth.user.firstname + " " + $page.props.auth.user.lastname }}</span>
+                                <span class="block text-sm font-medium text-gray-500 truncate">{{ $page.props.auth.user.email }}</span>
                             </div>
                             <ul class="py-1" aria-labelledby="dropdown">
                                 <BreezeDropdownLink :href="route('compte')">
@@ -45,9 +45,9 @@
                         </div>
                     </template>
                 </BreezeDropdown>
- 
+
             </div>
-            
+
         </div>
         <!-- TOP BAR END -->
 
@@ -104,5 +104,5 @@
         </div>
 
   </div>
-  
+
 </template>
