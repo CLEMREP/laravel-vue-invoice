@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,9 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::get('/facture/template', function () {
+    return view('invoice.text');
+})->name('facture.template');
 
 Route::get('/connexion', function () {
     return Inertia::render('Auth/Connexion',
@@ -45,6 +49,10 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/factures', function () {
         return Inertia::render('Dashboard/Pages/Factures/Index');
     })->name('factures');
+
+    Route::get('/factures/nouvelle-facture', function () {
+        return Inertia::render('Dashboard/Pages/Factures/Create');
+    })->name('create.factures');
 
     Route::get('/devis', function () {
         return Inertia::render('Dashboard/Pages/Devis/Index');
