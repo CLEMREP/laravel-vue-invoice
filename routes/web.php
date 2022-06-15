@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,33 +16,23 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Welcome');
 });
+
 Route::get('/facture/template', function () {
     return view('invoice.text');
 })->name('facture.template');
 
-Route::get('/connexion', function () {
-    return Inertia::render('Auth/Connexion',
-    [
-        'canResetPassword' => Route::has('password.request'),
-        'status' => session('status'),
-    ]);
-})->name('connexion');
-
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
-    Route::get('/clients', function () {
-        return Inertia::render('Dashboard/Pages/Clients/Index', ['users' => DB::table('users')->paginate(10), 'addresses' => DB::table('addresses')->paginate(10)]);
-    })->name('clients');
+    Route::get('/clients', [ClientController::class, 'index'])->name('client.index');
 
-    Route::get('/clients/nouveau-client', function () {
-        return Inertia::render('Dashboard/Pages/Clients/Create');
-    })->name('create.clients');
+    Route::get('/clients/nouveau-client', [ClientController::class, 'create'])->name('client.create');
+    Route::post('/clients/nouveau-client', [ClientController::class, 'store'])->name('client.store');
+
+    Route::post('/clients/supprimer/{user}', [ClientController::class, 'destroy'])->name('client.destroy');
+
+    Route::get('/clients/editer/{user}', [ClientController::class, 'edit'])->name('client.edit');
+    Route::post('/clients/editer/{user}', [ClientController::class, 'update'])->name('client.update');
 
     Route::get('/factures', function () {
         return Inertia::render('Dashboard/Pages/Factures/Index');

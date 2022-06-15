@@ -65,15 +65,15 @@
                         <i class='bx bx-chart bx-sm'></i>
                         <div class="absolute rounded-r bg-indigo-100 top-0 left-0 p-4 -ml-96 group-hover:ml-16 transition-all duration-200 z-50 font-medium">Évolutions</div>
                     </NavLink>
-                    <NavLink :active="route().current('clients')" :href="route('clients')">
+                    <NavLink :active="$page.url.startsWith('/dashboard/clients')" :href="route('client.index')">
                         <i class='bx bx-user bx-sm'></i>
                         <div class="absolute rounded-r bg-indigo-100 top-0 left-0 p-4 -ml-96 group-hover:ml-16 transition-all duration-200 z-50 font-medium">Clients</div>
                     </NavLink>
-                    <NavLink :active="route().current('factures')" :href="route('factures')">
+                    <NavLink :active="$page.url.startsWith('/dashboard/factures')" :href="route('factures')">
                         <i class='bx bx-file bx-sm'></i>
                         <div class="absolute rounded-r bg-indigo-100 top-0 left-0 p-4 -ml-96 group-hover:ml-16 transition-all duration-200 z-50 font-medium">Factures</div>
                     </NavLink>
-                    <NavLink :active="route().current('devis')" :href="route('devis')">
+                    <NavLink :active="$page.url.startsWith('/dashboard/devis')" :href="route('devis')">
                         <i class='bx bx-spreadsheet bx-sm'></i>
                         <div class="absolute rounded-r bg-indigo-100 top-0 left-0 p-4 -ml-96 group-hover:ml-16 transition-all duration-200 z-50 font-medium">Devis</div>
                     </NavLink>
