@@ -95,7 +95,7 @@ const form = useForm({
                                                         {{ user.email }}
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ user.address_id }}
+                                                        {{ user.city }}
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                         {{ user.company_name }}

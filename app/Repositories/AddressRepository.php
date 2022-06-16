@@ -22,12 +22,12 @@ class AddressRepository
         ]);
     }
 
-    public function getAddressFromUser(int $userAddressID) : Model
+    public function getAddressFromUser(int $userAddressID) : object|null
     {
         return $this->model->newQuery()->where('id', '=', $userAddressID)->first();
     }
 
-    public function updateAddress(array $data, int $userAddressID) : bool
+    public function updateAddress(array $data, int $userAddressID) : int
     {
         return $this->model->newQuery()->where('id', '=', $userAddressID)
                             ->update([

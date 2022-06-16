@@ -21,7 +21,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                         <div class="due-invoices">
                             <div class="relative z-10 flex items-center justify-between mb-3">
                                 <h6 class="mb-0 text-lg sm:text-xl font-semibold leading-normal">Factures émises</h6>
-                                <Link :href="route('factures')">
+                                <Link :href="route('facture.index')">
                                     <button class="inline-flex whitespace-nowrap items-center border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-2 text-sm leading-4 rounded-md border-transparent border-solid border-indigo-500 font-normal transition ease-in-out duration-150 text-indigo-500 hover:bg-indigo-200 shadow-inner">
                                             Voir tout
                                     </button>

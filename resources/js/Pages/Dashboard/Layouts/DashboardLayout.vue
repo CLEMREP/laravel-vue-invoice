@@ -69,7 +69,7 @@
                         <i class='bx bx-user bx-sm'></i>
                         <div class="absolute rounded-r bg-indigo-100 top-0 left-0 p-4 -ml-96 group-hover:ml-16 transition-all duration-200 z-50 font-medium">Clients</div>
                     </NavLink>
-                    <NavLink :active="$page.url.startsWith('/dashboard/factures')" :href="route('factures')">
+                    <NavLink :active="$page.url.startsWith('/dashboard/factures')" :href="route('facture.index')">
                         <i class='bx bx-file bx-sm'></i>
                         <div class="absolute rounded-r bg-indigo-100 top-0 left-0 p-4 -ml-96 group-hover:ml-16 transition-all duration-200 z-50 font-medium">Factures</div>
                     </NavLink>

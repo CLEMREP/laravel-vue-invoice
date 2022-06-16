@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Models\Address;
 use App\Models\User;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 
 class ClientRepository
@@ -16,6 +16,12 @@ class ClientRepository
     public function listOfUsers() : LengthAwarePaginator
     {
         return $this->model->newQuery()->orderBy('admin', 'desc')->paginate(6);
+    }
+
+
+    public function getAllUsers() : Collection
+    {
+        return $this->model->newQuery()->get();
     }
 
     public function storeUser(array $data, int $address_id) : User

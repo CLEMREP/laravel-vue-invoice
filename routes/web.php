@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,12 +17,11 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('connexion'),
+        'canRegister' => Route::has('inscription'),
+    ]);
 });
-
-Route::get('/facture/template', function () {
-    return view('invoice.text');
-})->name('facture.template');
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/clients', [ClientController::class, 'index'])->name('client.index');
@@ -34,13 +34,17 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/clients/editer/{user}', [ClientController::class, 'edit'])->name('client.edit');
     Route::post('/clients/editer/{user}', [ClientController::class, 'update'])->name('client.update');
 
-    Route::get('/factures', function () {
-        return Inertia::render('Dashboard/Pages/Factures/Index');
-    })->name('factures');
 
-    Route::get('/factures/nouvelle-facture', function () {
-        return Inertia::render('Dashboard/Pages/Factures/Create');
-    })->name('create.factures');
+    Route::get('/factures/preview/{invoice}', [InvoiceController::class, 'preview'])->name('facture.preview');
+    Route::get('/factures/telecharger/{invoice}', [InvoiceController::class, 'download'])->name('facture.download');
+
+    Route::get('/factures', [InvoiceController::class, 'index'])->name('facture.index');
+
+    Route::get('/factures/nouvelle-facture', [InvoiceController::class, 'create'])->name('facture.create');
+    Route::post('/factures/nouvelle-facture', [InvoiceController::class, 'store'])->name('facture.store');
+
+    Route::post('/factures/supprimer/{invoice}', [InvoiceController::class, 'destroy'])->name('facture.destroy');
+
 
     Route::get('/devis', function () {
         return Inertia::render('Dashboard/Pages/Devis/Index');

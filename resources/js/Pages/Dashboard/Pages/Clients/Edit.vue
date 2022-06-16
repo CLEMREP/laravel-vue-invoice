@@ -2,7 +2,7 @@
 import DashboardLayout from '@/Pages/Dashboard/Layouts/DashboardLayout.vue';
 import ValidationErrors from '@/Components/ValidationErrors.vue';
 import Input from '@/Components/Input.vue';
-import {Head, useForm} from '@inertiajs/inertia-vue3';
+import {Head} from '@inertiajs/inertia-vue3';
 
 export default {
     components: {
@@ -10,7 +10,6 @@ export default {
         ValidationErrors,
         Input,
         Head,
-        useForm,
     },
 
     props: ['user', 'address'],

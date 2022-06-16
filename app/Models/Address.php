@@ -5,6 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $state
+ * @property string $zip
+ * @property string $city
+ * @property string $address
+ * @property int $id
+ */
 class Address extends Model
 {
     use HasFactory;

@@ -1,13 +1,11 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
 parameters:
     paths:
         - app
 
     level: max
-
-    ignoreErrors:
-        - # escape some Eloquent Builder magic. ex: ->when() method is defined to possibly return mixed type, which seems to be incorrect
-            message: '#Cannot call method [a-zA-Z0-9]+\(\) on mixed\.#'
-            path: *
 
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false

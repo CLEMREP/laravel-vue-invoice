@@ -683,6 +683,9 @@ select{
 .mt-6{
   margin-top: 1.5rem;
 }
+.-ml-1{
+  margin-left: -0.25rem;
+}
 .ml-16{
   margin-left: 4rem;
 }
@@ -715,9 +718,6 @@ select{
 }
 .mb-8{
   margin-bottom: 2rem;
-}
-.-ml-1{
-  margin-left: -0.25rem;
 }
 .-mr-1{
   margin-right: -0.25rem;
@@ -1181,6 +1181,10 @@ select{
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
+.bg-red-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
+}
 .fill-current{
   fill: currentColor;
 }
@@ -1437,6 +1441,9 @@ select{
 .leading-snug{
   line-height: 1.375;
 }
+.leading-tight{
+  line-height: 1.25;
+}
 .tracking-wider{
   letter-spacing: 0.05em;
 }
@@ -1520,6 +1527,10 @@ select{
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
 }
+.text-red-900{
+  --tw-text-opacity: 1;
+  color: rgb(127 29 29 / var(--tw-text-opacity));
+}
 .underline{
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -1539,6 +1550,9 @@ select{
 }
 .opacity-25{
   opacity: 0.25;
+}
+.opacity-50{
+  opacity: 0.5;
 }
 .shadow-sm{
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -1925,6 +1939,9 @@ select{
   .sm\:mr-3{
     margin-right: 0.75rem;
   }
+  .sm\:block{
+    display: block;
+  }
   .sm\:flex{
     display: flex;
   }
@@ -2257,4 +2274,5 @@ select{
     width: 75%;
   }
 }
+
 

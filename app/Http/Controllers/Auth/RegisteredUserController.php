@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request) : Redirect
+    public function store(Request $request)
     {
         $request->validate([
             'firstname' => 'required|string|max:255',
@@ -55,24 +55,27 @@ class RegisteredUserController extends Controller
 
         /** @var Address $address */
         $address = Address::create([
-            'address' => $request->address,
-            'zip' => $request->zip,
-            'city' => $request->city,
-            'state' => $request->state,
+            'address' => $request->get('address'),
+            'zip' => $request->get('zip'),
+            'city' => $request->get('city'),
+            'state' => $request->get('state'),
         ]);
+
+        /** @var string $password */
+        $password = $request->get('password');
 
         /** @var User $user */
         $user = User::create([
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'company_name' => $request->companyName,
-            'company_email' => $request->companyEmail,
-            'company_phone' => $request->companyPhone,
-            'company_siret' => $request->companySiret,
-            'company_website' => $request->companyWebsite,
+            'firstname' => $request->get('firstname'),
+            'lastname' => $request->get('lastname'),
+            'phone' => $request->get('phone'),
+            'email' => $request->get('email'),
+            'password' => Hash::make($password),
+            'company_name' => $request->get('companyName'),
+            'company_email' => $request->get('companyEmail'),
+            'company_phone' => $request->get('companyPhone'),
+            'company_siret' => $request->get('companySiret'),
+            'company_website' => $request->get('companyWebsite'),
             'address_id' => $address->getKey(),
         ]);
 
