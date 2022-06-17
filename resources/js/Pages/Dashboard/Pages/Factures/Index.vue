@@ -99,7 +99,7 @@ const form = useForm({
                                                         {{ invoice.client.firstname + ' ' + invoice.client.lastname }}
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ invoice.total }} €
+                                                        {{ invoice.total }}
                                                     </td>
                                                     <td class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
                                                         <span
@@ -127,7 +127,7 @@ const form = useForm({
                                                                 </button>
                                                             </a>
 
-                                                            <a :href="route('facture.download', invoice)" class="focus:outline-none">
+                                                            <a :href="route('facture.download', invoice)" target="_blank">
                                                                 <button type="submit"
                                                                         class="focus:outline-none">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +141,7 @@ const form = useForm({
                                                                 </button>
                                                             </a>
 
-                                                            <form>
+                                                            <form @submit.prevent="form.get(route('facture.edit', invoice))">
                                                                 <button type="submit"
                                                                         class="focus:outline-none">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"

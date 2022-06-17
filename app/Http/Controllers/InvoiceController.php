@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInvoiceRequest;
+use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
 use App\Repositories\ClientRepository;
 use App\Repositories\InvoiceItemRepository;
@@ -61,6 +62,44 @@ class InvoiceController extends Controller
         return redirect(route('facture.index'));
     }
 
+    public function edit(Invoice $invoice) : Response
+    {
+        $users = $this->clientRepository->getAllUsers();
+        $invoiceItems = $this->invoiceItemRepository->getItemsOfInvoice($invoice);
+
+        return Inertia::render(
+            'Dashboard/Pages/Factures/Edit',
+            [
+                'users' => $users,
+                'invoice' => $invoice,
+                'invoiceItems' => $invoiceItems,
+            ]
+        );
+    }
+
+    public function update(UpdateInvoiceRequest $request, Invoice $invoice) : RedirectResponse|Redirector
+    {
+        $invoiceItems = $this->invoiceItemRepository->getItemsOfInvoice($invoice);
+        $invoiceItemsID = [];
+        foreach ($invoiceItems as $item) {
+            $invoiceItemsID[$item->id] = $item;
+        }
+        $this->invoiceRepository->updateInvoice($request, $invoice);
+
+        foreach ($request['items'] as $item) {
+            unset($invoiceItemsID[$item['id']]);
+            $this->invoiceItemRepository->updateInvoiceItem($item);
+        }
+
+        foreach ($invoiceItemsID as $item) {
+            $this->invoiceItemRepository->deleteInvoiceItem($item);
+        }
+
+
+
+        return redirect(route('facture.index'));
+    }
+
     public function destroy(Invoice $invoice) : RedirectResponse|Redirector
     {
         $this->invoiceRepository->deleteInvoice($invoice);
@@ -93,6 +132,6 @@ class InvoiceController extends Controller
             'editor' => $editor,
         ]);
 
-        return $pdf->stream($invoice->invoiceId . ' - ' . $client->firstname . ' ' . $client->lastname . '.pdf');
+        return $pdf->download($invoice->invoiceId . ' - ' . $client->firstname . ' ' . $client->lastname . '.pdf');
     }
 }

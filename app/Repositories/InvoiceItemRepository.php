@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class InvoiceItemRepository
 {
@@ -12,6 +13,10 @@ class InvoiceItemRepository
     {
     }
 
+    /**
+     * @param Invoice $invoice
+     * @return Collection<int, InvoiceItem>
+     */
     public function getItemsOfInvoice(Invoice $invoice) : Collection
     {
         return $this->model->newQuery()->where('invoice_id', '=', $invoice->getKey())->get();
@@ -27,5 +32,22 @@ class InvoiceItemRepository
                 'invoice_id' => $invoice->getKey(),
             ]
         );
+    }
+
+    public function updateInvoiceItem(array $item) : bool|null
+    {
+        return $this->model->newQuery()->where('id', '=', $item['id'])->update(
+            [
+                'name' => $item['name'],
+                'qte' => $item['qte'],
+                'price' => $item['price'],
+            ]
+        );
+    }
+
+
+    public function deleteInvoiceItem(InvoiceItem $invoiceItem) : bool|null
+    {
+        return $invoiceItem->delete();
     }
 }

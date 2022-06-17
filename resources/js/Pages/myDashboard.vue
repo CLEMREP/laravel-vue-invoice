@@ -2,6 +2,14 @@
 import DashboardLayout from '@/Pages/Dashboard/Layouts/DashboardLayout.vue';
 import DashboardData from "@/Pages/Dashboard/Components/DashboardData";
 import { Head, Link } from '@inertiajs/inertia-vue3';
+
+defineProps(
+    {
+        userCount: Object,
+        invoiceCount: Object,
+    }
+
+)
 </script>
 
 <template>
@@ -12,9 +20,8 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
             <div class="my-4 sm:my-12 mx-8 2xl:mx-auto 2xl:w-9/12">
 
                 <!-- DASHBOARD DATA -->
-                <DashboardData/>
+                <DashboardData :invoiceCount="invoiceCount" :userCount="userCount" />
                 <!-- DASHBOARD DATA END -->
-
                 <div>
                     <div class="grid grid-cols-1 gap-6 mt-14 xl:grid-cols-2">
 

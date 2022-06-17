@@ -14,7 +14,7 @@
         <div class="w-full mt-4 flex items-center justify-between p-6 bg-white rounded-xl shadow-md lg:mr-6">
             <div>
                 <span class="text-sm font-semibold uppercase text-gray-400">Factures</span>
-                <h1 class="text-2xl font-bold text-indigo-400">1</h1>
+                <h1 class="text-2xl font-bold text-indigo-400">{{invoiceCount}}</h1>
             </div>
             <div>
                 <!-- <i class='bx bxs-bank bx-lg md:ml-16'></i> -->
@@ -36,7 +36,7 @@
         <div class="w-full mt-4 flex items-center justify-between p-6 bg-white rounded-xl shadow-md">
             <div>
                 <span class="text-sm font-semibold uppercase text-gray-400">Clients</span>
-                <h1 class="text-2xl font-bold text-indigo-400">2</h1>
+                <h1 class="text-2xl font-bold text-indigo-400">{{userCount}}</h1>
             </div>
             <div>
                 <!-- <i class='bx bx-credit-card-alt bx-lg md:ml-16'></i> -->
@@ -49,6 +49,7 @@
 
 <script>
 export default {
-    name: "DashboardData"
+    name: "DashboardData",
+    props: ['userCount', 'invoiceCount']
 }
 </script>

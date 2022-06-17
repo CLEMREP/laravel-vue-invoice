@@ -67,4 +67,9 @@ class ClientRepository
     {
         return $user->delete();
     }
+
+    public function countUsers() : int
+    {
+        return $this->model->newQuery()->count();
+    }
 }

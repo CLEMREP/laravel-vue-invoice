@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +25,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
+    Route::get('/dashboard', [DashboardController::class,  'index'])->name('dashboard');
     Route::get('/clients', [ClientController::class, 'index'])->name('client.index');
 
     Route::get('/clients/nouveau-client', [ClientController::class, 'create'])->name('client.create');
@@ -34,16 +36,19 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/clients/editer/{user}', [ClientController::class, 'edit'])->name('client.edit');
     Route::post('/clients/editer/{user}', [ClientController::class, 'update'])->name('client.update');
 
-
-    Route::get('/factures/preview/{invoice}', [InvoiceController::class, 'preview'])->name('facture.preview');
-    Route::get('/factures/telecharger/{invoice}', [InvoiceController::class, 'download'])->name('facture.download');
-
     Route::get('/factures', [InvoiceController::class, 'index'])->name('facture.index');
 
     Route::get('/factures/nouvelle-facture', [InvoiceController::class, 'create'])->name('facture.create');
     Route::post('/factures/nouvelle-facture', [InvoiceController::class, 'store'])->name('facture.store');
 
+    Route::get('/factures/preview/{invoice}', [InvoiceController::class, 'preview'])->name('facture.preview');
+    Route::get('/factures/telecharger/{invoice}', [InvoiceController::class, 'download'])->name('facture.download');
+
     Route::post('/factures/supprimer/{invoice}', [InvoiceController::class, 'destroy'])->name('facture.destroy');
+
+    Route::get('/factures/editer/{invoice}', [InvoiceController::class, 'edit'])->name('facture.edit');
+    Route::post('/factures/editer/{invoice}', [InvoiceController::class, 'update'])->name('facture.update');
+
 
 
     Route::get('/devis', function () {
@@ -54,9 +59,5 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         return Inertia::render('Dashboard/Pages/Compte/Compte');
     })->name('compte');
 });
-
-Route::get('/dashboard', function () {
-    return Inertia::render('myDashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

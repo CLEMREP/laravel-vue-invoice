@@ -5,15 +5,15 @@ import {Head} from '@inertiajs/inertia-vue3';
 </script>
 
 <template>
-    <Head title="Nouvelle facture"/>
+    <Head title="Édition d'une facture"/>
     <DashboardLayout>
         <div class="absolute main-content ml-16 mt-16 overflow-y-auto">
             <div class="my-4 sm:my-12 mx-8 2xl:mx-auto 2xl:w-9/12">
                 <ValidationErrors class="mb-4"/>
-                <form @submit.prevent="form.post(route('facture.store'))">
+                <form @submit.prevent="form.post(route('facture.update', invoice))">
                     <div class="flex flex-wrap justify-between">
                         <div>
-                            <h3 class="text-2xl font-bold text-left text-black">Nouvelle Facture</h3>
+                            <h3 class="text-2xl font-bold text-left text-black">Édition d'une                                                       Facture</h3>
                         </div>
                         <div class="flex items-center">
                             <button
@@ -24,7 +24,7 @@ import {Head} from '@inertiajs/inertia-vue3';
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                           d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
                                 </svg>
-                                Sauvegarder
+                                Éditer la facture
                             </button>
                         </div>
                     </div>
@@ -40,8 +40,8 @@ import {Head} from '@inertiajs/inertia-vue3';
                                 <div class="flex flex-col mt-1">
                                     <div class="relative">
                                         <input v-model="form.invoiceDate"
-                                            class="font-base py-2 outline-none focus:ring-primary-400 focus:outline-none focus:border-primary-400 block w-full sm:text-sm border-gray-200 rounded-md text-black form-control input"
-                                            tabindex="0" type="date">
+                                               class="font-base py-2 outline-none focus:ring-primary-400 focus:outline-none focus:border-primary-400 block w-full sm:text-sm border-gray-200 rounded-md text-black form-control input"
+                                               tabindex="0" type="date">
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@ import {Head} from '@inertiajs/inertia-vue3';
                         <div class="flex flex-col mt-1">
                             <div class="relative rounded-md shadow-sm font-base">
                                 <select v-model="form.client"
-                                class="font-base block w-full sm:text-sm border-gray-200 rounded-md text-black focus:ring-primary-400 focus:border-primary-400">
+                                        class="font-base block w-full sm:text-sm border-gray-200 rounded-md text-black focus:ring-primary-400 focus:border-primary-400">
                                     <option disabled value="">Liste des clients</option>
                                     <option v-for="user in users" :key="user.id" :value="user.id" >{{ user.firstname + ' ' + user.lastname }}</option>
                                 </select>
@@ -133,7 +133,7 @@ import {Head} from '@inertiajs/inertia-vue3';
                                                         <col style="width: 15%; min-width: 120px;">
                                                     </colgroup>
                                                     <tbody>
-                                                    <tr v-for="(item, index) in form.items">
+                                                    <tr v-for="(item, index) in invoiceItems">
                                                         <td class="px-5 py-4 text-left align-top">
                                                             <div class="flex justify-start">
                                                                 <div v-on:click="deleteItem(index)"
@@ -153,7 +153,7 @@ import {Head} from '@inertiajs/inertia-vue3';
                                                         </td>
                                                         <td class="px-5 py-4 text-right align-top">
                                                             <div class="relative rounded-md shadow-sm font-base">
-                                                                <input v-model="item.quantity"
+                                                                <input v-model="item.qte"
                                                                        type="number"
                                                                        class="font-base block w-full sm:text-sm border-gray-200 rounded-md text-black focus:ring-primary-400 focus:border-primary-400">
                                                             </div>
@@ -179,7 +179,7 @@ import {Head} from '@inertiajs/inertia-vue3';
                                                             <div class="flex items-center justify-end text-sm">
                                                                 <span>
                                                                     <span class="text-base" style="font-family: sans-serif;">
-                                                                        {{ decimalDigits(item.price * item.quantity) }}
+                                                                        {{ decimalDigits(item.price * item.qte) }}
                                                                     </span>
                                                                 </span>
                                                                 <div
@@ -279,41 +279,29 @@ import {Head} from '@inertiajs/inertia-vue3';
 import { useForm } from '@inertiajs/inertia-vue3'
 
 export default {
-    props: ['users', 'countInvoice'],
+    props: ['users', 'invoice', 'invoiceItems'],
     data() {
         return {
             form : useForm({
                 editor: this.$page.props.auth.user.id,
-                client: '',
-                invoiceDate: new Date().toISOString().slice(0,10),
-                invoiceDueDate: this.getInvoiceDueDate(),
-                invoiceId: this.generateIdInvoice(),
-                discountRate: 0,
+                client: this.invoice.client_id,
+                invoiceDate: this.invoice.createDate,
+                invoiceDueDate: this.invoice.dueDate,
+                invoiceId: this.invoice.invoiceId,
+                discountRate: this.invoice.discount,
                 sousTotal: 0,
                 total: 0,
-                items: [
-                    {id: 0, name: 'Intitulé de la prestation / produit', quantity: 1, price: 0},
-                ],
+                items: this.invoiceItems,
             }),
         }
     },
     methods: {
-        getInvoiceDueDate: function() {
-            const date = new Date();
-            date.setMonth(date.getMonth() + 1);
-            return date.toISOString().slice(0,10);
-        },
-        generateIdInvoice: function() {
-            const date = new Date();
-            let idInvoice = 'F-' +  date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + ("00" + this.countInvoice).slice(-3);
-            return idInvoice;
-        },
         addNewItem: function () {
             this.form.items.push(
                 {
                     id: this.form.items.at(-1).id + 1,
                     name: 'Intitulé de la prestation / produit',
-                    quantity: 1,
+                    qte: 1,
                     price: 0
                 }
             )
@@ -328,7 +316,7 @@ export default {
     computed: {
         subTotal: function () {
             let total = this.form.items.reduce(function (accumulator, item) {
-                return accumulator + (item.price * item.quantity);
+                return accumulator + (item.price * item.qte);
             }, 0)
             this.form.sousTotal = this.decimalDigits(total);
             return total;
