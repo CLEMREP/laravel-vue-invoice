@@ -57,7 +57,7 @@ const form = useForm({
                                         <div
                                             class="relative overflow-hidden bg-white border-b border-gray-200 shadow-md sm:rounded-lg">
 
-                                            <table class="min-w-full divide-y divide-gray-200">
+                                            <table class="min-w-full">
                                                 <thead class="bg-gray-50">
                                                 <tr>
                                                     <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
@@ -84,109 +84,156 @@ const form = useForm({
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr v-if="invoices.data.length > 0" v-for="invoice in invoices.data"
-                                                    :key="invoice.id" class="bg-white">
-                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ invoice.invoiceId }}
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ invoice.createDate }}
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ invoice.dueDate }}
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ invoice.client.firstname + ' ' + invoice.client.lastname }}
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ invoice.total }}
-                                                    </td>
-                                                    <td class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
-                                                        <span
-                                                            class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                                                            <span aria-hidden
-                                                                  class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-                                                        <span class="relative">En Attente</span>
-                                                        </span>
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap text-right text-sm font-medium pl-0">
-                                                        <div class="flex items-center justify-end h-full text-left">
+                                                    <tr v-if="invoices.data.length > 0" v-for="invoice in invoices.data"
+                                                        :key="invoice.id" class="bg-white">
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                            {{ invoice.invoiceId }}
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                            {{ invoice.createDate }}
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                            {{ invoice.dueDate }}
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                            {{ invoice.client.firstname + ' ' + invoice.client.lastname }}
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                            {{ invoice.total }}
+                                                        </td>
+                                                        <td v-if="invoice.status == 0" class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-teal-900 leading-tight">
+                                                                <span aria-hidden
+                                                                      class="absolute inset-0 bg-teal-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative">En Attente</span>
+                                                            </span>
+                                                        </td>
 
-                                                            <a :href="route('facture.preview', invoice)" target="_blank">
-                                                                <button type="submit"
-                                                                        class="focus:outline-none">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         fill="#818cf8"
-                                                                         viewBox="0 0 24 24"
-                                                                         class="h-5 w-5 mr-2">
-                                                                        <path
-                                                                            d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
-                                                                        <path
-                                                                            d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
-                                                                    </svg>
-                                                                </button>
-                                                            </a>
+                                                        <td v-else-if="invoice.status == 1" class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-amber-900 leading-tight">
+                                                                <span aria-hidden
+                                                                      class="absolute inset-0 bg-amber-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative">Envoyé</span>
+                                                            </span>
+                                                        </td>
 
-                                                            <a :href="route('facture.download', invoice)" target="_blank">
-                                                                <button type="submit"
-                                                                        class="focus:outline-none">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         fill="#818cf8"
-                                                                         viewBox="0 0 24 24"
-                                                                         class="h-5 w-5 mr-2">
-                                                                        <path d="m12 16 4-5h-3V4h-2v7H8z"></path>
-                                                                        <path
-                                                                            d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path>
-                                                                    </svg>
-                                                                </button>
-                                                            </a>
+                                                        <td v-else-if="invoice.status == 2" class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                                                <span aria-hidden
+                                                                      class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative">Accepté</span>
+                                                            </span>
+                                                        </td>
 
-                                                            <form @submit.prevent="form.get(route('facture.edit', invoice))">
-                                                                <button type="submit"
-                                                                        class="focus:outline-none">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         fill="#818cf8"
-                                                                         viewBox="0 0 24 24"
-                                                                         class="h-5 w-5">
-                                                                        <path
-                                                                            d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zm-3-3 1.587 1.585-1.59 1.584-1.586-1.585 1.589-1.584zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zm-2 4h16v2H4z"></path>
-                                                                    </svg>
-                                                                </button>
-                                                            </form>
+                                                        <td v-else-if="invoice.status == 3" class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                                                <span aria-hidden
+                                                                      class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative">Refusé</span>
+                                                            </span>
+                                                        </td>
 
-                                                            <form @submit.prevent="form.post(route('facture.destroy', invoice))">
-                                                                <button type="submit"
-                                                                        class="focus:outline-none">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         fill="#818cf8"
-                                                                         viewBox="0 0 24 24"
-                                                                         class="h-5 w-5 ml-2">
-                                                                        <path
-                                                                            d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path>
-                                                                        <path d="M9 10h2v8H9zm4 0h2v8h-2z"></path>
-                                                                    </svg>
-                                                                </button>
-                                                            </form>
+                                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap text-right text-sm font-medium pl-0">
+                                                            <div class="flex items-center justify-end h-full text-left">
 
-                                                            <div class="z-10 w-56"
-                                                                 style="position: fixed; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(166px, 743px, 0px);"
-                                                                 data-popper-placement="bottom-end"
-                                                                 data-popper-reference-hidden="">
+                                                                <a :href="route('facture.preview', invoice)"
+                                                                   target="_blank">
+                                                                    <button type="submit"
+                                                                            class="focus:outline-none">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                             fill="#818cf8"
+                                                                             viewBox="0 0 24 24"
+                                                                             class="h-5 w-5 mr-2">
+                                                                            <path
+                                                                                d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
+                                                                            <path
+                                                                                d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                </a>
+
+                                                                <a :href="route('facture.download', invoice)"
+                                                                   target="_blank">
+                                                                    <button type="submit"
+                                                                            class="focus:outline-none">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                             fill="#818cf8"
+                                                                             viewBox="0 0 24 24"
+                                                                             class="h-5 w-5 mr-2">
+                                                                            <path d="m12 16 4-5h-3V4h-2v7H8z"></path>
+                                                                            <path
+                                                                                d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                </a>
+
+                                                                <a :href="route('paiement.index', invoice)">
+                                                                    <button type="submit"
+                                                                            class="focus:outline-none">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                             fill="#818cf8"
+                                                                             viewBox="0 0 24 24"
+                                                                             class="h-5 w-5 mr-2">
+                                                                            <path
+                                                                                d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                </a>
+
+                                                                <form
+                                                                    @submit.prevent="form.get(route('facture.edit', invoice))">
+                                                                    <button type="submit"
+                                                                            class="focus:outline-none">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                             fill="#818cf8"
+                                                                             viewBox="0 0 24 24"
+                                                                             class="h-5 w-5">
+                                                                            <path
+                                                                                d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zm-3-3 1.587 1.585-1.59 1.584-1.586-1.585 1.589-1.584zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zm-2 4h16v2H4z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                </form>
+
+                                                                <form
+                                                                    @submit.prevent="form.post(route('facture.destroy', invoice))">
+                                                                    <button type="submit"
+                                                                            class="focus:outline-none">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                             fill="#818cf8"
+                                                                             viewBox="0 0 24 24"
+                                                                             class="h-5 w-5 ml-2">
+                                                                            <path
+                                                                                d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path>
+                                                                            <path d="M9 10h2v8H9zm4 0h2v8h-2z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                </form>
+
+                                                                <div class="z-10 w-56"
+                                                                     style="position: fixed; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(166px, 743px, 0px);"
+                                                                     data-popper-placement="bottom-end"
+                                                                     data-popper-reference-hidden="">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr v-else
-                                                    class="text-center text-gray-500 pb-2 flex h-[160px] justify-center items-center flex-col">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                         viewBox="0 0 24 24" stroke="currentColor"
-                                                         class="h-5 w-5 w-6 h-6 text-gray-400">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                              stroke-width="2"
-                                                              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                    </svg>
-                                                    <span class="block mt-1">Pas de résultats</span>
-                                                </tr>
+                                                        </td>
+                                                    </tr>
+                                                    <tr v-else>
+                                                        <td colspan="999"
+                                                            class="w-100 text-center text-gray-500 pb-2 flex h-[160px] justify-center items-center flex-col">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                 viewBox="0 0 24 24" stroke="currentColor"
+                                                                 class="h-5 w-5 w-6 h-6 text-gray-400">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                      stroke-width="2"
+                                                                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                            </svg>
+                                                            <span class="block mt-1">Pas de résultats</span>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>

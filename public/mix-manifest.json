@@ -2,5 +2,10 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/style.css": "/css/style.css",
+    "/assets/img/101_cloud.jpg": "/assets/img/101_cloud.jpg",
+    "/assets/img/101_cloud.svg": "/assets/img/101_cloud.svg",
+    "/assets/img/favicon.png": "/assets/img/favicon.png",
+    "/assets/img/logo.png": "/assets/img/logo.png",
+    "/assets/img/logo_navbar.png": "/assets/img/logo_navbar.png",
     "/assets/img/profil.jpeg": "/assets/img/profil.jpeg"
 }

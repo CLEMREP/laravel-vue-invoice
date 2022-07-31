@@ -4,7 +4,7 @@
             <div>
                 <span class="text-sm font-semibold uppercase text-gray-400">Total</span><br>
                 <!-- <span class="text-xs font-semibold uppercase">01 janvier 2022 - 31 décembre 2022</span> -->
-                <h1 class="text-2xl font-bold text-indigo-400">6 750,99€</h1>
+                <h1 class="text-2xl font-bold text-indigo-400">{{sumInvoice}} €</h1>
             </div>
             <div>
                 <i class='bx bx-wallet bx-lg md:ml-16'></i>
@@ -50,6 +50,6 @@
 <script>
 export default {
     name: "DashboardData",
-    props: ['userCount', 'invoiceCount']
+    props: ['userCount', 'invoiceCount', 'sumInvoice']
 }
 </script>

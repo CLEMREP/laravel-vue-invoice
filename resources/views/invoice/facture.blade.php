@@ -18,8 +18,8 @@
             {{ $invoice->invoiceId }}
         </div>
         <div class="text-right ml-auto ">
-            <img class="ml-auto w-10 h-10" alt="logo facture"
-                 src="https://web-id.fr/images/pattern/pattern-bg-icotype.svg">
+            <img class="ml-auto h-12" alt="logo facture"
+                 src="{{asset('assets/img/logo_navbar.png')}}">
             <div class="mt-2">
                 <div class="text-lg font-semibold">
                     {{ $editor->company_name }}
@@ -148,7 +148,7 @@
                                 Sous-total
                             </td>
                             <td class="text-gray-900 font-semibold">
-                                {{ $invoice->subTotal }} €
+                                {{ $invoice->subTotal }}
                             </td>
                         </tr>
                         <tr class="mt-2">
@@ -164,7 +164,7 @@
                                 Total HT
                             </td>
                             <td class="text-green-500 text-right font-semibold">
-                                {{ $invoice->total }} €
+                                {{ $invoice->total }}
                             </td>
                         </tr>
                     </tbody>

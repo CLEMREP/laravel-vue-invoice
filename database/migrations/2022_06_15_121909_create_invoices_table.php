@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('discount');
             $table->string('subTotal');
             $table->string('total');
+            $table->integer('status')->default(0);
             $table->foreignId('client_id')->references('id')->on('users');
             $table->foreignId('editor_id')->references('id')->on('users');
         });

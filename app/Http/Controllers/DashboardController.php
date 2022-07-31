@@ -25,6 +25,7 @@ class DashboardController extends Controller
             [
                 'userCount' => $userCount,
                 'invoiceCount' => $invoiceCount,
+                'sumInvoice' => $this->invoiceRepository->totalMountInvoice(),
             ]
         );
     }

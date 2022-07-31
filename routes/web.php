@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,6 +17,9 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('paiement/{invoice}', [StripeController::class, 'stripe'])->name('paiement.index');
+Route::post('paiement}', [StripeController::class, 'stripePost'])->name('paiement.post');
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -25,7 +29,6 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
-    Route::get('/dashboard', [DashboardController::class,  'index'])->name('dashboard');
     Route::get('/clients', [ClientController::class, 'index'])->name('client.index');
 
     Route::get('/clients/nouveau-client', [ClientController::class, 'create'])->name('client.create');
@@ -59,5 +62,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         return Inertia::render('Dashboard/Pages/Compte/Compte');
     })->name('compte');
 });
+
+Route::get('/dashboard', [DashboardController::class,  'index'])->name('dashboard');
 
 require __DIR__.'/auth.php';

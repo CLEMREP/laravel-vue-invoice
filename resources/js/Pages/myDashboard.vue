@@ -7,6 +7,7 @@ defineProps(
     {
         userCount: Object,
         invoiceCount: Object,
+        sumInvoice: Object,
     }
 
 )
@@ -20,7 +21,7 @@ defineProps(
             <div class="my-4 sm:my-12 mx-8 2xl:mx-auto 2xl:w-9/12">
 
                 <!-- DASHBOARD DATA -->
-                <DashboardData :invoiceCount="invoiceCount" :userCount="userCount" />
+                <DashboardData :sumInvoice="sumInvoice" :invoiceCount="invoiceCount" :userCount="userCount" />
                 <!-- DASHBOARD DATA END -->
                 <div>
                     <div class="grid grid-cols-1 gap-6 mt-14 xl:grid-cols-2">

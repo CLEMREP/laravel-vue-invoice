@@ -28,6 +28,7 @@ class InvoiceRepository
                     'discount' => $request->get('discountRate'),
                     'subTotal' => $request->get('sousTotal'),
                     'total' => $request->get('total'),
+                    'status' => 0,
                     'client_id' => $request->get('client'),
                     'editor_id' => $request->get('editor'),
             ]
@@ -58,5 +59,15 @@ class InvoiceRepository
     public function countInvoices() : int
     {
         return $this->model->newQuery()->count();
+    }
+
+    public function totalMountInvoice() : string
+    {
+        $invoiceTotal = $this->model->newQuery()->get('total')->all();
+        $sumTotal = 0;
+        foreach ($invoiceTotal as $total) {
+            $sumTotal += floatval(str_replace([' ', '€', ','], ['', '', '.'], $total['total']));
+        }
+        return number_format($sumTotal, 2, ',', ' ');
     }
 }
