@@ -25,7 +25,7 @@
         <div class="w-full mt-4 flex items-center justify-between p-6 bg-white rounded-xl shadow-md lg:mr-6">
             <div>
                 <span class="text-sm font-semibold uppercase text-gray-400">Devis</span>
-                <h1 class="text-2xl font-bold text-indigo-400">2</h1>
+                <h1 class="text-2xl font-bold text-indigo-400">{{estimateCount}}</h1>
             </div>
             <div>
                 <!-- <i class='bx bx-donate-heart bx-lg md:ml-16'></i> -->
@@ -50,6 +50,6 @@
 <script>
 export default {
     name: "DashboardData",
-    props: ['userCount', 'invoiceCount', 'sumInvoice']
+    props: ['userCount', 'invoiceCount', 'estimateCount', 'sumInvoice']
 }
 </script>

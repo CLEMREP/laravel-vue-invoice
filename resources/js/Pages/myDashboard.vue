@@ -7,6 +7,7 @@ defineProps(
     {
         userCount: Object,
         invoiceCount: Object,
+        estimateCount: Object,
         sumInvoice: Object,
     }
 
@@ -14,14 +15,14 @@ defineProps(
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Tableau de bord" />
 
     <DashboardLayout>
-        <div class="absolute main-content ml-16 mt-16 overflow-y-auto">
+        <div class="absolute main-content sm:ml-16 mt-16 overflow-y-auto">
             <div class="my-4 sm:my-12 mx-8 2xl:mx-auto 2xl:w-9/12">
 
                 <!-- DASHBOARD DATA -->
-                <DashboardData :sumInvoice="sumInvoice" :invoiceCount="invoiceCount" :userCount="userCount" />
+                <DashboardData :sumInvoice="sumInvoice" :invoiceCount="invoiceCount" :estimateCount="estimateCount" :userCount="userCount" />
                 <!-- DASHBOARD DATA END -->
                 <div>
                     <div class="grid grid-cols-1 gap-6 mt-14 xl:grid-cols-2">
@@ -64,7 +65,7 @@ defineProps(
                         <div class="recent-estimates">
                             <div class="relative z-10 flex items-center justify-between mb-3">
                                 <h6 class="mb-0 text-lg sm:text-xl font-semibold leading-normal">Devis récents</h6>
-                                <Link :href="route('devis')">
+                                <Link :href="route('devis.index')">
                                     <button class="inline-flex whitespace-nowrap items-center border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-2 text-sm leading-4 rounded-md border-transparent border-solid border-indigo-500 font-normal transition ease-in-out duration-150 text-indigo-500 hover:bg-indigo-200 shadow-inner">
                                             Voir tout
                                     </button>

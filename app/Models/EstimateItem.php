@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Invoice extends Model
+class EstimateItem extends Model
 {
     public $timestamps = false;
 
@@ -17,14 +17,11 @@ class Invoice extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'invoiceId',
-        'createDate',
-        'dueDate',
-        'discount',
-        'subTotal',
-        'total',
-        'client_id',
-        'editor_id',
+        'name',
+        'desc',
+        'qte',
+        'price',
+        'estimate_id',
     ];
 
     protected $casts = [
@@ -32,18 +29,8 @@ class Invoice extends Model
         'editor_id' => 'integer',
     ];
 
-    public function editor() : BelongsTo
+    public function estimate() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'editor_id');
-    }
-
-    public function client() : BelongsTo
-    {
-        return $this->belongsTo(User::class, 'client_id');
-    }
-
-    public function items() : HasMany
-    {
-        return $this->hasMany(InvoiceItem::class);
+        return $this->belongsTo(Estimate::class, 'estimate_id');
     }
 }

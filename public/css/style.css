@@ -70,3 +70,10 @@ body {
 .bg-transparent {
     background-color: transparent !important;
 }
+
+@media (max-width: 639px) {
+    .main-content {
+        width: 100%;
+    }
+}
+

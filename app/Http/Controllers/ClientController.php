@@ -9,6 +9,7 @@ use App\Repositories\AddressRepository;
 use App\Repositories\ClientRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -22,7 +23,7 @@ class ClientController extends Controller
 
     public function index() : Response
     {
-        $users = $this->clientRepository->listOfUsers();
+        $users = $this->clientRepository->listOfUsers(Auth::user());
         foreach($users as $user) {
             $user['city'] = $user->address->city;
         }

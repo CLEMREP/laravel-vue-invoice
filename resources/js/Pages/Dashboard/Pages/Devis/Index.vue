@@ -1,6 +1,14 @@
 <script setup>
 import DashboardLayout from '@/Pages/Dashboard/Layouts/DashboardLayout.vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
+
+defineProps({
+    estimates: Object,
+})
+
+const form = useForm({
+    estimate: Object,
+});
 </script>
 
 <template>
@@ -15,43 +23,192 @@ import { Head } from '@inertiajs/inertia-vue3';
 
                         <div class="due-invoices">
                             <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between mb-3">
-                                <h6 class="mb-2 sm:mb-0 text-lg sm:text-xl font-semibold leading-normal">Mes Devis</h6>
+                                <h6 class="mb-2 sm:mb-0 text-lg sm:text-xl font-semibold leading-normal">Mes
+                                    Devis</h6>
                                 <div class="flex flex-col sm:flex-row justify-center sm:justify-end">
-                                    <button class="mb-2 sm:mb-0 sm:mr-3 inline-flex whitespace-nowrap items-center border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-2 text-sm leading-4 rounded-md border-transparent border-solid border-indigo-500 font-normal transition ease-in-out duration-150 text-indigo-500 hover:bg-indigo-200 shadow-inner" style="">
+                                    <button
+                                        class="mb-2 sm:mb-0 sm:mr-3 inline-flex whitespace-nowrap items-center border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-2 text-sm leading-4 rounded-md border-transparent border-solid border-indigo-500 font-normal transition ease-in-out duration-150 text-indigo-500 hover:bg-indigo-200 shadow-inner"
+                                        style="">
                                         Filtres
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5 ml-2 -mr-1 h-5 w-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke="currentColor" class="h-5 w-5 ml-2 -mr-1 h-5 w-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                                         </svg>
                                     </button>
-                                    <button class="inline-flex whitespace-nowrap items-center border font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-sm leading-5 rounded-md border-transparent shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-primary-500" type="submit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -ml-1 mr-2" fill="#FFF" viewBox="0 0 24 24">
-                                            <path d="M13 14v-3h3V9h-3V6h-2v3H8v2h3v3z"></path>
-                                            <path d="M20 22V4c0-1.103-.897-2-2-2H6c-1.103 0-2 .897-2 2v18l8-4.572L20 22zM6 10V4h12v14.553l-6-3.428-6 3.428V10z"></path>
-                                        </svg>
-                                        Nouveau devis
-                                    </button>
+                                    <Link :href="route('devis.create')">
+                                        <button
+                                            class="w-full inline-flex whitespace-nowrap items-center border font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-sm leading-5 rounded-md border-transparent shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-primary-500"
+                                            type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -ml-1 mr-2"
+                                                 fill="#FFF" viewBox="0 0 24 24">
+                                                <path d="M13 9h-2v3H8v2h3v3h2v-3h3v-2h-3z"></path>
+                                                <path
+                                                    d="M20 5h-8.586L9.707 3.293A.996.996 0 0 0 9 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2zM4 19V7h16l.002 12H4z"></path>
+                                            </svg>
+                                            Nouveau devis
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                             <div class="flex flex-col">
                                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 pb-4 lg:pb-0">
                                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                        <div class="relative overflow-hidden bg-white border-b border-gray-200 shadow-md sm:rounded-lg">
-                                            <table class="min-w-full divide-y divide-gray-200">
-                                                <thead class="bg-gray-50"><tr>
-                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Émise le</th>
-                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Client</th>
-                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">Montant dû</th>
-                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider pointer-events-none text-right pl-0"></th></tr>
+                                        <div
+                                            class="relative overflow-hidden bg-white border-b border-gray-200 shadow-md sm:rounded-lg">
+
+                                            <table class="min-w-full">
+                                                <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                                        Devis ID
+                                                    </th>
+                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                                        Émis le
+                                                    </th>
+                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                                        Expire le
+                                                    </th>
+                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                                        Client
+                                                    </th>
+                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                                        Montant dû
+                                                    </th>
+                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                                        Status
+                                                    </th>
+                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider pointer-events-none text-right pl-0">
+                                                        Actions
+                                                    </th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
+                                                <tr v-if="estimates.data.length > 0" v-for="estimate in estimates.data"
+                                                    :key="estimate.id" class="bg-white">
+                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                        {{ estimate.estimateId }}
+                                                    </td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                        {{ estimate.createDate }}
+                                                    </td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                        {{ estimate.dueDate }}
+                                                    </td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                        {{ estimate.client.firstname + ' ' + estimate.client.lastname }}
+                                                    </td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                        {{ estimate.total }}
+                                                    </td>
+                                                    <td v-if="estimate.status == 0" class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-teal-900 leading-tight">
+                                                                <span aria-hidden
+                                                                      class="absolute inset-0 bg-teal-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative">En Attente</span>
+                                                            </span>
+                                                    </td>
 
+                                                    <td v-else-if="estimate.status == 1" class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-amber-900 leading-tight">
+                                                                <span aria-hidden
+                                                                      class="absolute inset-0 bg-amber-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative">Envoyé</span>
+                                                            </span>
+                                                    </td>
+
+                                                    <td v-else-if="estimate.status == 2" class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                                                <span aria-hidden
+                                                                      class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative">Accepté</span>
+                                                            </span>
+                                                    </td>
+
+                                                    <td v-else-if="estimate.status == 3" class="px-6 py-4 text-xs text-gray-500 whitespace-nowrap">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                                                <span aria-hidden
+                                                                      class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative">Refusé</span>
+                                                            </span>
+                                                    </td>
+
+                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap text-right text-sm font-medium pl-0">
+                                                        <div class="flex items-center justify-end h-full text-left">
+
+                                                            <a :href="route('devis.preview', estimate)"
+                                                               target="_blank">
+                                                                <button type="submit"
+                                                                        class="focus:outline-none">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                         fill="#818cf8"
+                                                                         viewBox="0 0 24 24"
+                                                                         class="h-5 w-5 mr-2">
+                                                                        <path
+                                                                            d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
+                                                                        <path
+                                                                            d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
+                                                                    </svg>
+                                                                </button>
+                                                            </a>
+
+                                                            <a :href="route('devis.download', estimate)"
+                                                               target="_blank">
+                                                                <button type="submit"
+                                                                        class="focus:outline-none">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                         fill="#818cf8"
+                                                                         viewBox="0 0 24 24"
+                                                                         class="h-5 w-5 mr-2">
+                                                                        <path d="m12 16 4-5h-3V4h-2v7H8z"></path>
+                                                                        <path
+                                                                            d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path>
+                                                                    </svg>
+                                                                </button>
+                                                            </a>
+
+                                                            <form
+                                                                @submit.prevent="form.post(route('devis.destroy', estimate))">
+                                                                <button type="submit"
+                                                                        class="focus:outline-none">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                         fill="#818cf8"
+                                                                         viewBox="0 0 24 24"
+                                                                         class="h-5 w-5 ml-2">
+                                                                        <path
+                                                                            d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path>
+                                                                        <path d="M9 10h2v8H9zm4 0h2v8h-2z"></path>
+                                                                    </svg>
+                                                                </button>
+                                                            </form>
+
+                                                            <div class="z-10 w-56"
+                                                                 style="position: fixed; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(166px, 743px, 0px);"
+                                                                 data-popper-placement="bottom-end"
+                                                                 data-popper-reference-hidden="">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr v-else>
+                                                    <td colspan="999"
+                                                        class="w-100 text-center text-gray-500 pb-2 flex h-[160px] justify-center items-center flex-col">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                             viewBox="0 0 24 24" stroke="currentColor"
+                                                             class="h-5 w-5 w-6 h-6 text-gray-400">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                  stroke-width="2"
+                                                                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                        </svg>
+                                                        <span class="block mt-1">Pas de résultats</span>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="text-center text-gray-500 pb-2 flex h-[160px] justify-center items-center flex-col">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5 w-6 h-6 text-gray-400">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                                    <span class="block mt-1">Pas de résultats</span>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

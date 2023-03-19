@@ -13,9 +13,9 @@ class ClientRepository
     {
     }
 
-    public function listOfUsers() : LengthAwarePaginator
+    public function listOfUsers(User $user) : LengthAwarePaginator
     {
-        return $this->model->newQuery()->orderBy('admin', 'desc')->paginate(6);
+        return $this->model->newQuery()->where('id','!=', $user->getKey())->orderBy('admin', 'desc')->paginate(6);
     }
 
 
@@ -70,6 +70,6 @@ class ClientRepository
 
     public function countUsers() : int
     {
-        return $this->model->newQuery()->count();
+        return $this->model->newQuery()->count()-1;
     }
 }

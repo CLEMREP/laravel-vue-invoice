@@ -18,9 +18,9 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         Address::insert([
-            'address' => '88 rue Saint-Martin',
-            'city' => 'Caen',
-            'zip' => '14000',
+            'address' => '63 Boulevard du Tertre',
+            'city' => 'Nantes',
+            'zip' => '44100',
             'state' => 'France',
         ]);
 
@@ -33,17 +33,14 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
             'admin' => true,
-            'company_name' => 'Web^ID',
-            'company_email' => 'hello@web-id.fr',
-            'company_phone' => '07 61 20 25 20',
-            'company_siret' => '568 941 00056',
-            'company_website' => 'web-id.fr',
+            'company_name' => 'Binary-Cloud',
+            'company_email' => 'contact@clement-repel.fr',
+            'company_phone' => '07 61 38 20 28',
+            'company_siret' => '90468726600018',
+            'company_website' => 'clement-repel.fr',
             'address_id' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-
-        User::factory()->count(20)->create();
     }
 }

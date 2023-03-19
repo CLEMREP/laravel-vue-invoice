@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Invoice extends Model
+class Estimate extends Model
 {
     public $timestamps = false;
 
@@ -17,7 +17,7 @@ class Invoice extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'invoiceId',
+        'estimateId',
         'createDate',
         'dueDate',
         'discount',
