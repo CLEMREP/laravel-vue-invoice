@@ -20,7 +20,7 @@ class Invoice extends Model
         'invoiceId',
         'invoiceTitle',
         'createDate',
-        'dueDate',
+        'executeDate',
         'discount',
         'subTotal',
         'total',

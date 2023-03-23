@@ -67,7 +67,7 @@ const form = useForm({
                                                         Émise le
                                                     </th>
                                                     <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
-                                                        Expire le
+                                                        Exécute le
                                                     </th>
                                                     <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
                                                         Client
@@ -93,7 +93,7 @@ const form = useForm({
                                                             {{ invoice.createDate }}
                                                         </td>
                                                         <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                            {{ invoice.dueDate }}
+                                                            {{ invoice.executeDate }}
                                                         </td>
                                                         <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                             {{ invoice.client.firstname + ' ' + invoice.client.lastname }}

@@ -48,13 +48,13 @@ import {Head} from '@inertiajs/inertia-vue3';
                             <div class="relative w-full text-left">
                                 <label
                                     class="flex text-sm not-italic items-center font-medium text-gray-800 whitespace-nowrap justify-between">
-                                    <div>Date d'expiration
+                                    <div>Date d'exécution
                                         <span class="text-sm text-red-500" style="display: none;"> * </span>
                                     </div>
                                 </label>
                                 <div class="flex flex-col mt-1">
                                     <div class="relative">
-                                        <input v-model="form.invoiceDueDate"
+                                        <input v-model="form.invoiceExecuteDate"
                                                class="font-base py-2 outline-none focus:ring-primary-400 focus:outline-none focus:border-primary-400 block w-full sm:text-sm border-gray-200 rounded-md text-black form-control input"
                                                tabindex="0" type="date">
                                     </div>
@@ -342,7 +342,7 @@ export default {
                 editor: this.$page.props.auth.user.id,
                 client: '',
                 invoiceDate: new Date().toISOString().slice(0,10),
-                invoiceDueDate: this.getInvoiceDueDate(),
+                invoiceExecuteDate: new Date().toISOString().slice(0,10),
                 invoiceId: this.generateIdInvoice(),
                 invoiceTitle: '',
                 discountRate: 0,

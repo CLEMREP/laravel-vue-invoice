@@ -15,7 +15,7 @@ class StoreInvoiceRequest extends FormRequest
     {
         return [
             'invoiceDate' => ['required', 'date_format:Y-m-d'],
-            'invoiceDueDate' => ['required', 'date_format:Y-m-d'],
+            'invoiceExecuteDate' => ['required', 'date_format:Y-m-d'],
             'invoiceId' => ['required', 'string'],
             'invoiceTitle' => ['nullable', 'string', 'min:1', 'max:255'],
             'client' => ['required', 'integer'],

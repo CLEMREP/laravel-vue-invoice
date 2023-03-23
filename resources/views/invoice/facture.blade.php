@@ -27,7 +27,7 @@
                  src="{{asset('assets/img/logo_navbar.png')}}">
             <div class="mt-2">
                 <div class="text-lg font-semibold">
-                    {{ $editor->company_name }}
+                    {{ $editor->company_name }} EI
                 </div>
                 <div class="font-medium mt-1 text-sm">
                     {{ $editor->company_email }}
@@ -87,10 +87,10 @@
                 </tr>
                 <tr>
                     <td class="uppercase text-sm font-semibold text-gray-400 w-1/3">
-                        Expire le
+                        Exécution
                     </td>
                     <td class="w-2/3 text-sm font-medium">
-                        {{ $invoice->dueDate }}
+                        {{ $invoice->executeDate }}
                     </td>
                 </tr>
                 </tbody>
@@ -130,7 +130,7 @@
                             <td class="px-6 text-right" style="white-space:normal; padding-top: 15px;">
                                 {{ $item->price }} €
                             </td>
-                            <td class="px-6 text-right font-semibold text-gray-900" style="column-width: 70px; white-space:normal; padding-top: 15px;">
+                            <td class="px-6 text-right font-semibold text-gray-900" style="column-width: auto; white-space:normal; padding-top: 15px;">
                                 {{ number_format($item->price * $item->qte, 2, ",", " ") }} €
                             </td>
                         </tr>
@@ -201,13 +201,13 @@
                         <td>
                             <div class="text-sm ml-4 items-center font-medium flex text-gray-700">
                                 IBAN :
-                                <span class="font-semibold text-gray-900 ml-1">FR7612548029989876543210917</span>
+                                <span class="font-semibold text-gray-900 ml-1">FR76 1660 6220 1184 8778 6381 520</span>
                             </div>
                         </td>
                         <td>
                             <div class="text-sm ml-4 items-center font-medium flex text-gray-700">
                                 BIC :
-                                <span class="font-semibold text-gray-900 ml-1">CEPAFRPP</span>
+                                <span class="font-semibold text-gray-900 ml-1">AGRIFRPP866</span>
                             </div>
                         </td>
                     </tr>
@@ -242,15 +242,6 @@
                 </div>
             </div>
         @endif
-    </div>
-
-    <div class="mt-10 mb-2" style="display: inline-block; width: 49%; text-align: right;">
-        <div class="font-semibold uppercase text-lg text-gray-700 mb-2">
-            Signature
-        </div>
-        <div class="text-sm items-center font-medium text-gray-700">
-            Datée et précédée de la mention "Bon pour accord"
-        </div>
     </div>
 </div>
 </body>

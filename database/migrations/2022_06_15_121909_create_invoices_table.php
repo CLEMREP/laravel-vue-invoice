@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('invoiceId')->unique();
             $table->string('invoiceTitle')->nullable();
             $table->string('createDate');
-            $table->string('dueDate');
+            $table->string('executeDate');
             $table->integer('discount');
             $table->string('subTotal');
             $table->string('total');

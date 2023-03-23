@@ -42,6 +42,7 @@ class InvoiceItemRepository
                 'name' => $item['name'],
                 'qte' => $item['qte'],
                 'price' => $item['price'],
+                'description' => $item['description'] ?? '',
             ]
         );
     }
