@@ -18,7 +18,7 @@ class EstimateItem extends Model
      */
     protected $fillable = [
         'name',
-        'desc',
+        'description',
         'qte',
         'price',
         'estimate_id',

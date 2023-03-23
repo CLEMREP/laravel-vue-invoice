@@ -23,11 +23,13 @@ class InvoiceRepository
         return $this->model->create(
             [
                     'invoiceId' => $request->get('invoiceId'),
+                    'invoiceTitle' => $request->get('invoiceTitle'),
                     'createDate' => $request->get('invoiceDate'),
                     'dueDate' => $request->get('invoiceDueDate'),
                     'discount' => $request->get('discountRate'),
                     'subTotal' => $request->get('sousTotal'),
                     'total' => $request->get('total'),
+                    'notes' => str_replace('\n', '<br />', $request->get('notes')) ?? '',
                     'status' => 0,
                     'client_id' => $request->get('client'),
                     'editor_id' => $request->get('editor'),

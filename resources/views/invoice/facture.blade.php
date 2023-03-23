@@ -14,8 +14,13 @@
 <body class="bg-gray-50">
 <div class="pdf invoice p-10 bg-white">
     <div class="flex flex-row">
-        <div class="font-bold text-gray-700 text-2xl">
-            {{ $invoice->invoiceId }}
+        <div class="flex flex-col">
+            <div class="font-bold text-gray-700 text-2xl">
+                {{ $invoice->invoiceId }}
+            </div>
+            <div class="font-medium text-gray-700 mt-2 text-sm">
+                {{ $invoice->invoiceTitle }}
+            </div>
         </div>
         <div class="text-right ml-auto ">
             <img class="ml-auto h-12" alt="logo facture"
@@ -100,7 +105,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-4">
-                        Produit / Service
+                        Prestation
                     </th>
                     <th scope="col" class="text-right px-6 py-4">
                         QTE
@@ -114,26 +119,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($items as $item)
-                    @if($loop->odd)
-                        <tr class="bg-white">
-                    @else
-                        <tr class="bg-gray-50">
-                            @endif
-                            <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap">
+                    @foreach($items as $item)
+                        <tr style="border-bottom: 1px solid #000000; background-color: {{ $loop->odd ? "#FFF" : "#F9FAFB" }};">
+                            <th scope="row" class="px-6 font-semibold text-gray-900" style="white-space:normal; padding-top: 15px;">
                                 {{ $item->name }}
                             </th>
-                            <td class="px-6 py-3 text-right">
+                            <td class="px-6 text-right" style="white-space:normal; padding-top: 15px;">
                                 {{ $item->qte }}
                             </td>
-                            <td class="px-6 py-3 text-right">
+                            <td class="px-6 text-right" style="white-space:normal; padding-top: 15px;">
                                 {{ $item->price }} €
                             </td>
-                            <td class="px-6 py-3 text-right font-medium text-gray-900">
-                                {{ $item->price }} €
+                            <td class="px-6 text-right font-semibold text-gray-900" style="column-width: 70px; white-space:normal; padding-top: 15px;">
+                                {{ number_format($item->price * $item->qte, 2, ",", " ") }} €
                             </td>
                         </tr>
-                        @endforeach
+                        <tr class="{{ $loop->odd ? "bg-white" : "bg-gray-50" }}">
+                            <td colspan="4" class="px-6 pb-4 text-left font-normal text-gray-700" style="padding-top: 5px; padding-bottom: 15px;">
+                                {{ $item->description }}
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -216,11 +222,34 @@
         </div>
         <div class="flex px-6">
             <div class="text-sm items-center font-medium flex text-gray-700">
-                Paiement comptant. Pas d'escompte pour réglement anticipé.<br>
-                En cas de retard de paiement, indemnité forfaitaire légale pour frais de recouvrement : 40€.<br>
-                Les prénalités de retard correspondent à : 0% du montant TTC.<br>
-                Dispensé d'immatriculation au RCS et au répertoire des métiers.
+                Paiement à {{ $invoice->payment_penality_days }} jours. Pas d’escompte pour règlement anticipé.<br />
+                Les pénalités de retard correspondent à : {{ $invoice->payment_penality_rate }}% du montant TTC.<br />
+                Dispensé d'immatriculation au RCS et au répertoire des métiers.<br />
             </div>
+        </div>
+    </div>
+
+    <div style="display: inline-block; width: 49%; vertical-align: top;">
+        @if(!empty($invoice->notes))
+            <div class="mt-10" style="text-align: left; margin-right: auto;">
+                <div class="font-semibold text-lg text-gray-700 uppercase mb-2">
+                    Informations
+                </div>
+                <div class="px-6" style="display: inline-block;">
+                    <div class="text-sm items-center font-medium flex text-gray-700" style="width: 75%;">
+                        {{ $invoice->notes }}
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <div class="mt-10 mb-2" style="display: inline-block; width: 49%; text-align: right;">
+        <div class="font-semibold uppercase text-lg text-gray-700 mb-2">
+            Signature
+        </div>
+        <div class="text-sm items-center font-medium text-gray-700">
+            Datée et précédée de la mention "Bon pour accord"
         </div>
     </div>
 </div>

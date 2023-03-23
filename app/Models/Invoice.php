@@ -18,11 +18,15 @@ class Invoice extends Model
      */
     protected $fillable = [
         'invoiceId',
+        'invoiceTitle',
         'createDate',
         'dueDate',
         'discount',
         'subTotal',
         'total',
+        'payment_penality_days',
+        'payment_penality_rate',
+        'notes',
         'client_id',
         'editor_id',
     ];

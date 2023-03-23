@@ -17,9 +17,9 @@
         <div class="font-bold text-gray-700 text-2xl">
             {{ $estimate->estimateId }}
         </div>
-        <div class="text-right ml-auto ">
+        <div class="text-right ml-auto">
             <img class="ml-auto h-12" alt="logo facture"
-                 src="{{asset('assets/img/logo_navbar.png')}}">
+                 src="{{ asset('assets/img/logo_navbar.png') }}">
             <div class="mt-2">
                 <div class="text-lg font-semibold">
                     {{ $editor->company_name }}
@@ -42,7 +42,7 @@
 
 
     <div class="w-2/3 mt-3">
-        <div class="mt-8">
+        <div>
             <table class="w-full">
                 <tbody>
                 <tr>
@@ -112,25 +112,26 @@
                 </thead>
                 <tbody>
                 @foreach($items as $item)
-                    @if($loop->odd)
-                        <tr class="bg-white">
-                    @else
-                        <tr class="bg-gray-50" style="border-bottom: 1px solid #000000">
-                            @endif
-                            <th scope="row" class="px-6 py-3 font-medium text-gray-900" style="white-space:normal;">
-                                {{ $item->name }}
-                            </th>
-                            <td class="px-6 py-3 text-right">
-                                {{ $item->qte }}
-                            </td>
-                            <td class="px-6 py-3 text-right">
-                                {{ $item->price }} €
-                            </td>
-                            <td class="px-6 py-3 text-right font-medium text-gray-900">
-                                {{ $item->price }} €
-                            </td>
-                        </tr>
-                        @endforeach
+                    <tr style="border-bottom: 1px solid #000000; background-color: {{ $loop->odd ? "#FFF" : "#F9FAFB" }};">
+                        <th scope="row" class="px-6 font-semibold text-gray-900" style="white-space:normal; padding-top: 15px;">
+                            {{ $item->name }}
+                        </th>
+                        <td class="px-6 text-right" style="white-space:normal; padding-top: 15px;">
+                            {{ $item->qte }}
+                        </td>
+                        <td class="px-6 text-right" style="white-space:normal; padding-top: 15px;">
+                            {{ $item->price }} €
+                        </td>
+                        <td class="px-6 text-right font-semibold text-gray-900" style="column-width: 70px; white-space:normal; padding-top: 15px;">
+                            {{ number_format($item->price * $item->qte, 2, ",", " ") }} €
+                        </td>
+                    </tr>
+                    <tr class="{{ $loop->odd ? "bg-white" : "bg-gray-50" }}">
+                        <td colspan="4" class="px-6 pb-4 text-left font-normal text-gray-700" style="padding-top: 5px; padding-bottom: 15px;">
+                            {{ $item->description }}
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
@@ -171,7 +172,7 @@
     </div>
     <p class="text-right text-xs mt-2 text-gray-400 font-light italic">TVA non applicable art. 293b du CGI</p>
 
-    <div class="flex flex-col text-left mr-auto mt-10">
+    <div class="flex flex-col text-left mr-auto mt-2">
         <div class="font-semibold text-lg text-gray-700 uppercase mb-2">
             Paiement
         </div>
@@ -213,17 +214,29 @@
         </div>
         <div class="flex px-6">
             <div class="text-sm items-center font-medium flex text-gray-700">
-                Paiement comptant. Pas d'escompte pour réglement anticipé.<br>
-                En cas de retard de paiement, indemnité forfaitaire légale pour frais de recouvrement : 40€.<br>
-                Les pénalités de retard correspondent à : 0% du montant TTC.<br>
-                Dispensé d'immatriculation au RCS et au répertoire des métiers.
+                Paiement à {{ $estimate->payment_penality_days }} jours. Pas d’escompte pour règlement anticipé.<br />
+                Les pénalités de retard correspondent à : {{ $estimate->payment_penality_rate }}% du montant TTC.<br />
+                Dispensé d'immatriculation au RCS et au répertoire des métiers.<br />
             </div>
         </div>
     </div>
 
-    <div class="mr-auto mt-10 mb-2" style="
-margin-left: 51%;
-align-items: end;">
+    <div style="display: inline-block; width: 49%; vertical-align: top;">
+        @if(!empty($estimate->notes))
+            <div class="mt-10" style="text-align: left; margin-right: auto;">
+                <div class="font-semibold text-lg text-gray-700 uppercase mb-2">
+                    Informations
+                </div>
+                <div class="px-6" style="display: inline-block;">
+                    <div class="text-sm items-center font-medium flex text-gray-700" style="width: 75%;">
+                        {{ $estimate->notes }}
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <div class="mt-10 mb-2" style="display: inline-block; width: 49%; text-align: right;">
         <div class="font-semibold uppercase text-lg text-gray-700 mb-2">
             Signature
         </div>

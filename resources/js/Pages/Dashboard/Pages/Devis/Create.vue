@@ -100,17 +100,21 @@ import {Head} from '@inertiajs/inertia-vue3';</script>
                                 <div class="overflow-hidden lg:overflow-visible sm:px-2 lg:p-2">
                                     <table class="text-center item-table min-w-full">
                                         <colgroup>
+                                            <col style="width: 30%; min-width: 280px;">
                                             <col style="width: 40%; min-width: 280px;">
                                             <col style="width: 10%; min-width: 120px;">
-                                            <col style="width: 15%; min-width: 120px;">
-                                            <col style="width: 15%; min-width: 120px;">
+                                            <col style="width: 10%; min-width: 120px;">
+                                            <col style="width: 10%; min-width: 120px;">
                                         </colgroup>
                                         <thead class="bg-white border border-gray-200 border-solid">
                                         <tr>
                                             <th class="px-5 py-3 text-sm not-italic font-medium leading-5 text-left text-gray-700 border-t border-b border-gray-200 border-solid">
-                                                <span class="pl-9">Produit/Service</span>
+                                                <span class="pl-9">Prestation</span>
                                             </th>
-                                            <th class="px-5 py-3 text-sm not-italic font-medium leading-5 text-right text-gray-700 border-t border-b border-gray-200 border-solid">
+                                            <th class="px-5 py-3 text-sm not-italic font-medium leading-5 text-left text-gray-700 border-t border-b border-gray-200 border-solid">
+                                                <span>Description</span>
+                                            </th>
+                                            <th class="px-5 py-3 text-sm not-italic font-medium leading-5 text-left text-gray-700 border-t border-b border-gray-200 border-solid">
                                                 <span>Quantité</span>
                                             </th>
                                             <th class="px-5 py-3 text-sm not-italic font-medium leading-5 text-left text-gray-700 border-t border-b border-gray-200 border-solid">
@@ -126,10 +130,11 @@ import {Head} from '@inertiajs/inertia-vue3';</script>
                                             <td colspan="5" class="p-0 text-left align-top">
                                                 <table class="w-full">
                                                     <colgroup>
+                                                        <col style="width: 30%; min-width: 280px;">
                                                         <col style="width: 40%; min-width: 280px;">
                                                         <col style="width: 10%; min-width: 120px;">
-                                                        <col style="width: 15%; min-width: 120px;">
-                                                        <col style="width: 15%; min-width: 120px;">
+                                                        <col style="width: 10%; min-width: 120px;">
+                                                        <col style="width: 10%; min-width: 120px;">
                                                     </colgroup>
                                                     <tbody>
                                                     <tr v-for="(item, index) in form.items">
@@ -148,6 +153,13 @@ import {Head} from '@inertiajs/inertia-vue3';</script>
                                                                         <div class="h-9 py-px box-content"></div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-5 py-4 text-right align-top">
+                                                            <div class="relative rounded-md shadow-sm font-base">
+                                                                <input v-model="item.description"
+                                                                       type="text"
+                                                                       class="font-base block w-full sm:text-sm border-gray-200 rounded-md text-black focus:ring-primary-400 focus:border-primary-400">
                                                             </div>
                                                         </td>
                                                         <td class="px-5 py-4 text-right align-top">
@@ -205,65 +217,93 @@ import {Head} from '@inertiajs/inertia-vue3';</script>
                                             Ajouter un produit / service
                                         </div>
                                     </span>
-                                    <div class="block mt-6 lg:flex lg:justify-end">
-                                        <div
-                                            class="px-5 py-4 mt-4 bg-white border border-gray-200 border-solid rounded md:min-w-[390px] min-w-[300px]">
-                                            <div class="flex items-center justify-between w-full">
-                                                <label class="text-sm font-semibold leading-5 text-gray-400 uppercase">
-                                                    Sous-Total
-                                                </label>
-                                                <label
-                                                    class="flex items-center justify-center m-0 text-lg text-black uppercase">
+
+                                    <div class="flex flex-row justify-between">
+                                        <div class="flex flex-col mt-6 md:min-w-[450px] min-w-[300px]">
+                                            <div class="flex flex-row">
+                                                <div class="mr-4">
+                                                    <label for="message" class="block mb-2 mt-6 text-sm font-medium text-gray-900">
+                                                        Limite de paiement
+                                                    </label>
+                                                    <input v-model="form.paymentPenalityDays"
+                                                           type="number"
+                                                           class="font-base block w-full sm:text-sm border-gray-200 rounded-md text-black focus:ring-primary-400 focus:border-primary-400">
+                                                </div>
+
+                                                <div>
+                                                    <label for="message" class="block mb-2 mt-6 text-sm font-medium text-gray-900">
+                                                        Taux de pénalité
+                                                    </label>
+                                                    <input v-model="form.paymentPenalityRate"
+                                                           type="number"
+                                                           step="any"
+                                                           class="font-base block w-full sm:text-sm border-gray-200 rounded-md text-black focus:ring-primary-400 focus:border-primary-400">
+                                                </div>
+                                            </div>
+                                            <label for="message" class="block mb-2 mt-4 text-sm font-medium text-gray-900">Notes</label>
+                                            <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" v-model="form.notes" placeholder="Veuillez renseigner les informations supplémentaires"></textarea>
+                                        </div>
+                                        <div class="block mt-6 lg:flex lg:justify-end">
+                                            <div
+                                                class="px-5 py-4 mt-4 bg-white border border-gray-200 border-solid rounded md:min-w-[390px] min-w-[300px]">
+                                                <div class="flex items-center justify-between w-full">
+                                                    <label class="text-sm font-semibold leading-5 text-gray-400 uppercase">
+                                                        Sous-Total
+                                                    </label>
+                                                    <label
+                                                        class="flex items-center justify-center m-0 text-lg text-black uppercase">
                                                     <span style="font-family: sans-serif;">
                                                         {{ decimalDigits(subTotal) }}
                                                     </span>
-                                                </label>
-                                            </div>
-                                            <div class="flex items-center justify-between w-full mt-2">
-                                                <label class="text-sm font-semibold leading-5 text-gray-400 uppercase">
-                                                    Remise
-                                                </label>
-                                                <div class="flex">
-                                                    <div
-                                                        class="relative rounded-md shadow-sm font-base border-r-0 focus:border-r-2 rounded-tr-sm rounded-br-sm h-[38px]">
-                                                        <input v-model="form.discountRate"
-                                                               class="border-r-0 focus:border-r-2 rounded-tr-sm rounded-br-sm h-[38px] font-base block w-full sm:text-sm border-gray-200 rounded-md text-black focus:ring-primary-400 focus:border-primary-400"
-                                                               type="number">
-
-                                                    </div>
-                                                    <div class="relative inline-block h-full text-left">
+                                                    </label>
+                                                </div>
+                                                <div class="flex items-center justify-between w-full mt-2">
+                                                    <label class="text-sm font-semibold leading-5 text-gray-400 uppercase">
+                                                        Remise
+                                                    </label>
+                                                    <div class="flex">
                                                         <div
-                                                            class="inline-flex whitespace-nowrap items-center border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-sm leading-5 rounded-md border-gray-200 text-gray-700 bg-white hover:bg-gray-50 focus:ring-primary-500 focus:ring-offset-0 rounded-tr-md rounded-br-md p-2 rounded-none">
+                                                            class="relative rounded-md shadow-sm font-base border-r-0 focus:border-r-2 rounded-tr-sm rounded-br-sm h-[38px]">
+                                                            <input v-model="form.discountRate"
+                                                                   class="border-r-0 focus:border-r-2 rounded-tr-sm rounded-br-sm h-[38px] font-base block w-full sm:text-sm border-gray-200 rounded-md text-black focus:ring-primary-400 focus:border-primary-400"
+                                                                   type="number">
+
+                                                        </div>
+                                                        <div class="relative inline-block h-full text-left">
+                                                            <div
+                                                                class="inline-flex whitespace-nowrap items-center border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-sm leading-5 rounded-md border-gray-200 text-gray-700 bg-white hover:bg-gray-50 focus:ring-primary-500 focus:ring-offset-0 rounded-tr-md rounded-br-md p-2 rounded-none">
                                                                 <span class="flex items-center">
                                                                     %
                                                                 </span>
-                                                        </div>
-                                                        <div class="z-10 w-56"
-                                                             style="position: fixed; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(661px, 515px, 0px);">
+                                                            </div>
+                                                            <div class="z-10 w-56"
+                                                                 style="position: fixed; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(661px, 515px, 0px);">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="flex justify-end items-center w-full">
-                                                <div class="my-2">
-                                                    Soit : {{ decimalDigits(discountTotal) }}
+                                                <div class="flex justify-end items-center w-full">
+                                                    <div class="my-2">
+                                                        Soit : {{ decimalDigits(discountTotal) }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div
-                                                class="flex items-center justify-between w-full pt-2 mt-5 border-t border-gray-200 border-solid">
-                                                <label
-                                                    class="m-0 text-sm font-semibold leading-5 text-gray-400 uppercase">
-                                                    Total
-                                                </label>
-                                                <label
-                                                    class="flex items-center justify-center text-lg uppercase text-primary-400">
+                                                <div
+                                                    class="flex items-center justify-between w-full pt-2 mt-5 border-t border-gray-200 border-solid">
+                                                    <label
+                                                        class="m-0 text-sm font-semibold leading-5 text-gray-400 uppercase">
+                                                        Total
+                                                    </label>
+                                                    <label
+                                                        class="flex items-center justify-center text-lg uppercase text-primary-400">
                                                     <span style="font-family: sans-serif;">
                                                         {{ decimalDigits(grandTotal) }}
                                                     </span>
-                                                </label>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -290,8 +330,11 @@ export default {
                 discountRate: 0,
                 sousTotal: 0,
                 total: 0,
+                paymentPenalityDays: 30,
+                paymentPenalityRate: 6.37,
+                notes: '',
                 items: [
-                    {id: 0, name: 'Intitulé de la prestation / produit', quantity: 1, price: 0},
+                    {id: 0, name: 'Intitulé de la prestation', description: 'Description de la prestation', quantity: 1, price: 0},
                 ],
             }),
         }
@@ -310,7 +353,8 @@ export default {
             this.form.items.push(
                 {
                     id: this.form.items.at(-1).id + 1,
-                    name: 'Intitulé de la prestation / produit',
+                    name: 'Intitulé de la prestation',
+                    description: 'Description de la prestation',
                     quantity: 1,
                     price: 0
                 }

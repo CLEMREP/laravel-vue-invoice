@@ -28,6 +28,7 @@ class EstimateItemRepository
                 'name' => $item['name'],
                 'qte' => $item['quantity'],
                 'price' => $item['price'],
+                'description' => $item['description'] ?? '',
                 'estimate_id' => $estimate->getKey(),
             ]
         );

@@ -30,6 +30,9 @@ class EsitmateRepository
                 'subTotal' => $request->get('sousTotal'),
                 'total' => $request->get('total'),
                 'status' => 0,
+                'notes' => str_replace('\n', '<br />', $request->get('notes')) ?? '',
+                'payment_penality_days' => $request->get('paymentPenalityDays'),
+                'payment_penality_rate' => $request->get('paymentPenalityRate'),
                 'client_id' => $request->get('client'),
                 'editor_id' => $request->get('editor'),
             ]

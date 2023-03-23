@@ -29,6 +29,7 @@ class InvoiceItemRepository
                 'name' => $item['name'],
                 'qte' => $item['quantity'],
                 'price' => $item['price'],
+                'description' => $item['description'] ?? '',
                 'invoice_id' => $invoice->getKey(),
             ]
         );
