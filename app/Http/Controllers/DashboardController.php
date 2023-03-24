@@ -27,6 +27,8 @@ class DashboardController extends Controller
                 'invoiceCount' => $this->invoiceRepository->countInvoices(),
                 'estimateCount' => $this->estimateRepository->countEstimates(),
                 'sumInvoice' => $this->invoiceRepository->totalMountInvoice(),
+                'estimates' => $this->estimateRepository->listOfEstimates(),
+                'invoices' => $this->invoiceRepository->listOfInvoices(),
             ]
         );
     }

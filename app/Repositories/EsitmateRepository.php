@@ -16,7 +16,7 @@ class EsitmateRepository
 
     public function listOfEstimates() : LengthAwarePaginator
     {
-        return $this->model->newQuery()->paginate(6);
+        return $this->model->newQuery()->with(['client'])->paginate(5);
     }
 
     public function createEstimate(Request $request) : Estimate

@@ -15,7 +15,7 @@ class InvoiceRepository
 
     public function listOfInvoices() : LengthAwarePaginator
     {
-        return $this->model->newQuery()->paginate(6);
+        return $this->model->newQuery()->with(['client'])->paginate(5);
     }
 
     public function createInvoice(Request $request) : Invoice
