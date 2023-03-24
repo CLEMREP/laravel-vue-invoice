@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        Address::insert([
+        $address = Address::insert([
             'address' => '63 Boulevard du Tertre',
             'city' => 'Nantes',
             'zip' => '44100',
@@ -33,12 +33,12 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
             'admin' => true,
+            'company' => true,
             'company_name' => 'Binary-Cloud',
             'company_email' => 'contact@clement-repel.fr',
             'company_phone' => '07 61 38 20 28',
             'company_siret' => '90468726600018',
-            'company_website' => 'clement-repel.fr',
-            'address_id' => 1,
+            'address_id' => $address->getKey(),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

@@ -24,6 +24,7 @@ class ClientController extends Controller
     public function index() : Response
     {
         $users = $this->clientRepository->listOfUsers(Auth::user());
+
         foreach($users as $user) {
             $user['city'] = $user->address->city;
         }
@@ -45,7 +46,7 @@ class ClientController extends Controller
         $data = $request->validated();
 
         $address = $this->addressRepository->storeAddress($data);
-        $this->clientRepository->storeUser($data, $address->id);
+        $this->clientRepository->storeUser($data, $address->getKey());
 
         return redirect(route('client.index'));
     }

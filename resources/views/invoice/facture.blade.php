@@ -61,6 +61,7 @@
                         {{ $client->firstname . ' ' . $client->lastname }}
                     </td>
                 </tr>
+                @if ($client->company)
                 <tr>
                     <td class="uppercase text-sm font-semibold text-gray-400 w-1/3">
                         SIRET
@@ -69,6 +70,7 @@
                         {{ $client->company_siret }}
                     </td>
                 </tr>
+                @endif
                 <tr>
                     <td class="uppercase align-top text-sm font-semibold text-gray-400 w-1/3">
                         Adresse

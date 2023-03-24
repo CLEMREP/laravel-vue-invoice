@@ -72,10 +72,10 @@ const form = useForm({
                                                         Ville
                                                     </th>
                                                     <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
-                                                        Société
+                                                        Entreprise
                                                     </th>
                                                     <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
-                                                        SIRET
+                                                        Admin
                                                     </th>
                                                     <th class="whitespace-nowrap px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
                                                         Actions
@@ -84,7 +84,7 @@ const form = useForm({
                                                 </thead>
                                                 <tbody>
 
-                                                <tr v-for="user in users.data" :key="user.id" class="bg-white">
+                                                <tr v-if="users.data.length > 0" v-for="user in users.data" :key="user.id" class="bg-white">
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                         {{ user.firstname }}
                                                     </td>
@@ -98,10 +98,38 @@ const form = useForm({
                                                         {{ user.city }}
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ user.company_name }}
+                                                        <div v-if="user.company" class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
+                                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+
+                                                            <h2 class="text-sm font-normal">Oui</h2>
+                                                        </div>
+
+                                                        <div v-else class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-red-500 bg-red-100/60">
+                                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+
+                                                            <h2 class="text-sm font-normal">Non</h2>
+                                                        </div>
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ user.company_siret }}
+                                                        <div v-if="user.admin" class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
+                                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+
+                                                            <h2 class="text-sm font-normal">Oui</h2>
+                                                        </div>
+
+                                                        <div v-else class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-red-500 bg-red-100/60">
+                                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+
+                                                            <h2 class="text-sm font-normal">Non</h2>
+                                                        </div>
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap text-right text-sm font-medium pl-0">
                                                         <div class="flex items-center justify-end h-full text-left">
@@ -139,13 +167,27 @@ const form = useForm({
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                <tr v-else>
+                                                    <td colspan="7">
+                                                        <div class="w-full text-center text-gray-500 pb-2 flex h-[160px] justify-center items-center flex-col">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                 viewBox="0 0 24 24" stroke="currentColor"
+                                                                 class="h-5 w-5 w-6 h-6 text-gray-400">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                      stroke-width="2"
+                                                                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                            </svg>
+                                                            <span class="block mt-1">Pas de résultats</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
 
                                                 </tbody>
                                             </table>
 
                                         </div>
 
-                                        <div class="mt-3">
+                                        <div v-if="users.data.length > 0" class="mt-3">
                                             <div class="flex">
                                                 <template v-for="link in users.links">
                                                     <Link v-if="link.url" :href="link.url" v-html="link.label"

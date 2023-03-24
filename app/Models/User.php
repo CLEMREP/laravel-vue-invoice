@@ -18,12 +18,12 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $company_name
  * @property string $company_email
  * @property string $company_phone
- * @property string $company_website
  * @property string $company_siret
  * @property string $password
  * @property datetime $email_verified_at
  * @property string $remember_token
  * @property bool $admin
+ * @property bool $company
  * @property int $address_id
  */
 class User extends Authenticatable
@@ -42,10 +42,10 @@ class User extends Authenticatable
         'phone',
         'password',
         'admin',
+        'company',
         'company_name',
         'company_email',
         'company_phone',
-        'company_website',
         'company_siret',
         'address_id',
     ];

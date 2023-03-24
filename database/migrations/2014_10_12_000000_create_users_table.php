@@ -22,11 +22,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('admin')->default(false);
+            $table->boolean('company')->default(false);
             $table->string('company_name')->nullable();
             $table->string('company_email')->nullable();
             $table->string('company_phone')->nullable();
             $table->string('company_siret')->nullable();
-            $table->string('company_website')->nullable();
             $table->foreignId('address_id')->references('id')->on('addresses')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();

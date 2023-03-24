@@ -22,7 +22,7 @@
                  src="{{ asset('assets/img/logo_navbar.png') }}">
             <div class="mt-2">
                 <div class="text-lg font-semibold">
-                    {{ $editor->company_name }}
+                    {{ $editor->company_name }} EI
                 </div>
                 <div class="font-medium mt-1 text-sm">
                     {{ $editor->company_email }}
@@ -53,14 +53,16 @@
                         {{ $client->firstname . ' ' . $client->lastname }}
                     </td>
                 </tr>
-                <tr>
-                    <td class="uppercase text-sm font-semibold text-gray-400 w-1/3">
-                        SIRET
-                    </td>
-                    <td class="w-2/3 text-sm font-medium">
-                        {{ $client->company_siret }}
-                    </td>
-                </tr>
+                @if ($client->company)
+                    <tr>
+                        <td class="uppercase text-sm font-semibold text-gray-400 w-1/3">
+                            SIRET
+                        </td>
+                        <td class="w-2/3 text-sm font-medium">
+                            {{ $client->company_siret }}
+                        </td>
+                    </tr>
+                @endif
                 <tr>
                     <td class="uppercase align-top text-sm font-semibold text-gray-400 w-1/3">
                         Adresse

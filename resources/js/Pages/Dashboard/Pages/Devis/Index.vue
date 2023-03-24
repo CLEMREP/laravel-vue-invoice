@@ -195,16 +195,17 @@ const form = useForm({
                                                     </td>
                                                 </tr>
                                                 <tr v-else>
-                                                    <td colspan="999"
-                                                        class="w-100 text-center text-gray-500 pb-2 flex h-[160px] justify-center items-center flex-col">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                             viewBox="0 0 24 24" stroke="currentColor"
-                                                             class="h-5 w-5 w-6 h-6 text-gray-400">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                        </svg>
-                                                        <span class="block mt-1">Pas de résultats</span>
+                                                    <td colspan="7">
+                                                        <div class="w-full text-center text-gray-500 pb-2 flex h-[160px] justify-center items-center flex-col">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                 viewBox="0 0 24 24" stroke="currentColor"
+                                                                 class="h-5 w-5 w-6 h-6 text-gray-400">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                      stroke-width="2"
+                                                                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                            </svg>
+                                                            <span class="block mt-1">Pas de résultats</span>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 </tbody>

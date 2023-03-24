@@ -31,14 +31,14 @@ class ClientRepository
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'company_name' => $data['companyName'],
-            'company_email' => $data['companyEmail'],
-            'company_phone' => $data['companyPhone'],
-            'company_siret' => $data['companySiret'],
-            'company_website' => $data['companyWeb'],
-            'address_id' => $address_id,
+            'password' => Hash::make(rand(12, 24)),
+            'company_name' => $data['companyName'] ?? '',
+            'company_email' => $data['companyEmail'] ?? '',
+            'company_phone' => $data['companyPhone'] ?? '',
+            'company_siret' => $data['companySiret'] ?? '',
+            'company' => $data['company'],
             'admin' => $data['admin'],
+            'address_id' => $address_id,
         ]);
     }
 
@@ -49,17 +49,21 @@ class ClientRepository
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
             'email' => $data['email'],
-            'company_name' => $data['companyName'],
-            'company_email' => $data['companyEmail'],
-            'company_phone' => $data['companyPhone'],
-            'company_siret' => $data['companySiret'],
-            'company_website' => $data['companyWeb'],
+            'company_name' => $data['companyName'] ?? '',
+            'company_email' => $data['companyEmail'] ?? '',
+            'company_phone' => $data['companyPhone'] ?? '',
+            'company_siret' => $data['companySiret'] ?? '',
+            'company' => $data['company'],
             'admin' => $data['admin'],
         ]);
 
-        if (!is_null($data['password'])) {
-            $user->password = Hash::make($data['password']);
-            $user->save();
+        if (!$data['company']) {
+            $user->update([
+                'company_name' => '',
+                'company_email' => '',
+                'company_phone' => '',
+                'company_siret' => '',
+            ]);
         }
     }
 

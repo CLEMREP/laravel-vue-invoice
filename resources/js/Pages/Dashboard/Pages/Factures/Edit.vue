@@ -54,7 +54,7 @@ import {Head} from '@inertiajs/inertia-vue3';
                                 </label>
                                 <div class="flex flex-col mt-1">
                                     <div class="relative">
-                                        <input v-model="form.invoiceDueDate"
+                                        <input v-model="form.invoiceExecuteDate"
                                                class="font-base py-2 outline-none focus:ring-primary-400 focus:outline-none focus:border-primary-400 block w-full sm:text-sm border-gray-200 rounded-md text-black form-control input"
                                                tabindex="0" type="date">
                                     </div>
@@ -344,7 +344,7 @@ export default {
                 editor: this.$page.props.auth.user.id,
                 client: this.invoice.client_id,
                 invoiceDate: this.invoice.createDate,
-                invoiceDueDate: this.invoice.dueDate,
+                invoiceExecuteDate: this.invoice.executeDate,
                 invoiceId: this.invoice.invoiceId,
                 invoiceTitle: this.invoice.invoiceTitle,
                 discountRate: this.invoice.discount,

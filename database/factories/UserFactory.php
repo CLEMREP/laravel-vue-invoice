@@ -27,11 +27,11 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'admin' => false,
+            'company' => true,
             'company_name' => $this->faker->company(),
             'company_email' => $this->faker->companyEmail(),
             'company_phone' => $this->faker->mobileNumber(),
             'company_siret' => $this->faker->siret(),
-            'company_website' => $this->faker->domainName(),
             'address_id' => Address::factory()->create(),
         ];
     }
