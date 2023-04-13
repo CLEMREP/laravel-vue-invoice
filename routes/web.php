@@ -35,10 +35,10 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/clients/nouveau-client', [ClientController::class, 'create'])->name('client.create');
     Route::post('/clients/nouveau-client', [ClientController::class, 'store'])->name('client.store');
 
-    Route::post('/clients/supprimer/{user}', [ClientController::class, 'destroy'])->name('client.destroy');
+    Route::post('/clients/supprimer/{client}', [ClientController::class, 'destroy'])->name('client.destroy');
 
-    Route::get('/clients/editer/{user}', [ClientController::class, 'edit'])->name('client.edit');
-    Route::post('/clients/editer/{user}', [ClientController::class, 'update'])->name('client.update');
+    Route::get('/clients/editer/{client}', [ClientController::class, 'edit'])->name('client.edit');
+    Route::post('/clients/editer/{client}', [ClientController::class, 'update'])->name('client.update');
 
     Route::get('/factures', [InvoiceController::class, 'index'])->name('facture.index');
 

@@ -43,7 +43,7 @@ class Invoice extends Model
 
     public function client() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'client_id');
+        return $this->belongsTo(Client::class, 'client_id');
     }
 
     public function items() : HasMany

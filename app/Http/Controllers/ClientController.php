@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Client;
+use App\Models\Company;
 use App\Models\User;
 use App\Repositories\AddressRepository;
 use App\Repositories\ClientRepository;
+use App\Repositories\CompanyRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
@@ -17,21 +20,24 @@ class ClientController extends Controller
 {
     public function __construct(
         private ClientRepository $clientRepository,
-        private AddressRepository $addressRepository
+        private AddressRepository $addressRepository,
+        private CompanyRepository $companyRepository,
     ) {
     }
 
     public function index() : Response
     {
-        $users = $this->clientRepository->listOfUsers(Auth::user());
+        /** @var User $connectedUser */
+        $connectedUser = Auth::user();
+        $clients = $this->clientRepository->listOfUsers($connectedUser);
 
-        foreach($users as $user) {
-            $user['city'] = $user->address->city;
+        foreach($clients as $client) {
+            $client['city'] = $client->address->city;
         }
 
         return Inertia::render('Dashboard/Pages/Clients/Index',
             [
-                'users' => $users,
+                'clients' => $clients,
             ]);
     }
 
@@ -44,37 +50,46 @@ class ClientController extends Controller
     {
         /** @var array $data */
         $data = $request->validated();
+        $data['user_id'] = Auth::user()->getKey();
 
         $address = $this->addressRepository->storeAddress($data);
-        $this->clientRepository->storeUser($data, $address->getKey());
+        if ($data['isCompany']) {
+            $company = $this->companyRepository->storeCompany($data, $address->getKey());
+        }
+        $this->clientRepository->storeClient($data, $address->getKey(), $company?->getKey() ?? null);
 
         return redirect(route('client.index'));
     }
 
-    public function destroy(User $user) : RedirectResponse|Redirector
+    public function destroy(Client $client) : RedirectResponse|Redirector
     {
-        $this->clientRepository->deleteUser($user);
+        $this->clientRepository->deleteClient($client);
         return redirect(route('client.index'));
     }
 
-    public function edit(User $user) : Response
+    public function edit(Client $client) : Response
     {
+        /** @var Company|null $company */
+        $company = $this->companyRepository->getCompanyFromClient($client->company_id);
+
         return Inertia::render(
             'Dashboard/Pages/Clients/Edit',
             [
-                'user' => $user,
-                'address' => $this->addressRepository->getAddressFromUser($user->address_id)
+                'client' => $client,
+                'address' => $this->addressRepository->getAddressFromClient($client->address_id),
+                'company' => $company,
+                'companyAddress' => $company?->address ?? null,
             ]
         );
     }
 
-    public function update(UpdateUserRequest $request, User $user) : RedirectResponse|Redirector
+    public function update(UpdateUserRequest $request, Client $client) : RedirectResponse|Redirector
     {
         /** @var array $data */
         $data = $request->validated();
 
-        $this->addressRepository->updateAddress($data, $user->address_id);
-        $this->clientRepository->updateUser($data, $user);
+        $this->addressRepository->updateAddress($data, $client->address);
+        $this->clientRepository->updateClient($data, $client);
 
         return redirect(route('client.index'));
     }

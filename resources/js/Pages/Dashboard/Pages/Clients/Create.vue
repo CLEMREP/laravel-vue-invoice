@@ -17,8 +17,11 @@ const form = useForm({
     companyEmail: '',
     companyPhone: '',
     companySiret: '',
-    company: false,
-    admin: false,
+    companyAddress: '',
+    companyZip: '',
+    companyCity: '',
+    companyState: '',
+    isCompany: false,
 });
 
 const submit = () => {
@@ -37,7 +40,7 @@ const submit = () => {
                 <form @submit.prevent="submit">
                     <div class="flex flex-wrap justify-between mb-4">
                         <div>
-                            <h3 class="text-2xl font-bold text-left text-black">Nouveau clients</h3>
+                            <h3 class="text-2xl font-bold text-left text-black">Nouveau client</h3>
                         </div>
                         <div class="flex items-center">
                             <button
@@ -65,18 +68,9 @@ const submit = () => {
                                     <div class="relative w-full text-left">
 
                                         <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" v-model="form.company" class="sr-only peer">
+                                            <input type="checkbox" v-model="form.isCompany" class="sr-only peer">
                                             <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                                             <span class="ml-3 text-sm font-medium text-gray-900">Entreprise</span>
-                                        </label>
-                                    </div>
-
-                                    <div class="relative w-full text-left">
-
-                                        <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" v-model="form.admin" class="sr-only peer">
-                                            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                                            <span class="ml-3 text-sm font-medium text-gray-900">Admin</span>
                                         </label>
                                     </div>
                                 </div>
@@ -113,40 +107,6 @@ const submit = () => {
                                                        name="firstname" type="text"
                                                        class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
                                                        placeholder="Clément">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="grid gap-y-6 gap-x-4 md:grid-cols-2 md:col-span-2 lg:col-span-2" v-if="form.company">
-                                        <div class="relative w-full text-left">
-                                            <label
-                                                class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
-                                                <div>SIRET <span class="text-sm text-red-500"> * </span>
-                                                </div>
-                                            </label>
-                                            <div class="flex flex-col mt-1">
-                                                <div
-                                                    class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
-                                                    <input v-model="form.companySiret" autofocus autocomplete="companySiret"
-                                                           name="companySiret" type="text"
-                                                           class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
-                                                           placeholder="123 25988651445">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="relative w-full text-left">
-                                            <label
-                                                class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
-                                                <div>Nom de l'entreprise <span class="text-sm text-red-500"> * </span></div>
-                                            </label>
-                                            <div class="flex flex-col mt-1">
-                                                <div
-                                                    class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
-                                                    <input v-model="form.companyName" autofocus autocomplete="companyName"
-                                                           name="companyName" type="text"
-                                                           class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
-                                                           placeholder="Binary-Cloud">
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -257,35 +217,135 @@ const submit = () => {
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="grid gap-y-6 gap-x-4 md:grid-cols-2 md:col-span-2 lg:col-span-2" v-if="form.company">
-                                        <div class="relative w-full text-left">
-                                            <label
-                                                class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
-                                                <div>E-Mail de société</div>
-                                            </label>
-                                            <div class="flex flex-col mt-1">
-                                                <div
-                                                    class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
-                                                    <input v-model="form.companyEmail" autofocus autocomplete="companyEmail" name="companyEmail"
-                                                           type="text"
-                                                           class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
-                                                           placeholder="contact@binary-cloud.fr">
+                                </div>
+                            </div>
+                            <div v-if="form.isCompany">
+                                <hr>
+                                <div class="grid grid-cols-5 gap-4 mt-8 mb-8">
+                                    <h6 class="col-span-5 text-lg font-semibold text-left lg:col-span-1">Entreprise</h6>
+                                    <div class="grid gap-y-6 gap-x-4 md:grid-cols-2 col-span-5 lg:col-span-4">
+                                        <div class="grid gap-y-6 gap-x-4 md:grid-cols-2 md:col-span-2 lg:col-span-2">
+                                            <div class="relative w-full text-left">
+                                                <label
+                                                    class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
+                                                    <div>E-Mail de société</div>
+                                                </label>
+                                                <div class="flex flex-col mt-1">
+                                                    <div
+                                                        class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
+                                                        <input v-model="form.companyEmail" autofocus autocomplete="companyEmail" name="companyEmail"
+                                                               type="text"
+                                                               class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
+                                                               placeholder="contact@binary-cloud.fr">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="relative w-full text-left">
-                                            <label
-                                                class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
-                                                <div>Téléphone de société</div>
-                                            </label>
-                                            <div class="flex flex-col mt-1">
-                                                <div
-                                                    class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
-                                                    <input v-model="form.companyPhone" autofocus autocomplete="companyPhone" name="companyPhone"
-                                                           type="text"
-                                                           class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
-                                                           placeholder="07 61 38 20 25">
+                                            <div class="relative w-full text-left">
+                                                <label
+                                                    class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
+                                                    <div>Téléphone de société</div>
+                                                </label>
+                                                <div class="flex flex-col mt-1">
+                                                    <div
+                                                        class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
+                                                        <input v-model="form.companyPhone" autofocus autocomplete="companyPhone" name="companyPhone"
+                                                               type="text"
+                                                               class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
+                                                               placeholder="07 61 38 20 25">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="relative w-full text-left">
+                                                <label
+                                                    class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
+                                                    <div>SIRET <span class="text-sm text-red-500"> * </span>
+                                                    </div>
+                                                </label>
+                                                <div class="flex flex-col mt-1">
+                                                    <div
+                                                        class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
+                                                        <input v-model="form.companySiret" autofocus autocomplete="companySiret"
+                                                               name="companySiret" type="text"
+                                                               class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
+                                                               placeholder="123 25988651445">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="relative w-full text-left">
+                                                <label
+                                                    class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
+                                                    <div>Nom de l'entreprise <span class="text-sm text-red-500"> * </span></div>
+                                                </label>
+                                                <div class="flex flex-col mt-1">
+                                                    <div
+                                                        class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
+                                                        <input v-model="form.companyName" autofocus autocomplete="companyName"
+                                                               name="companyName" type="text"
+                                                               class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
+                                                               placeholder="Binary-Cloud">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="relative w-full text-left">
+                                                <label
+                                                    class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
+                                                    <div>Adresse <span class="text-sm text-red-500"> * </span></div>
+                                                </label>
+                                                <div class="flex flex-col mt-1">
+                                                    <div
+                                                        class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
+                                                        <input v-model="form.companyAddress" autofocus autocomplete="address"
+                                                               name="address" type="text"
+                                                               class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
+                                                               placeholder="63 Boulevard du Tertre">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="relative w-full text-left">
+                                                <label
+                                                    class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
+                                                    <div>Pays <span class="text-sm text-red-500"> * </span></div>
+                                                </label>
+                                                <div class="flex flex-col mt-1">
+                                                    <div
+                                                        class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
+                                                        <input v-model="form.companyState" autofocus autocomplete="state" name="state"
+                                                               type="text"
+                                                               class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
+                                                               placeholder="France">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="relative w-full text-left">
+                                                <label
+                                                    class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
+                                                    <div>Code Postale <span class="text-sm text-red-500"> * </span></div>
+                                                </label>
+                                                <div class="flex flex-col mt-1">
+                                                    <div
+                                                        class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
+                                                        <input v-model="form.companyZip" autofocus autocomplete="zip" name="zip"
+                                                               type="text"
+                                                               class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
+                                                               placeholder="44100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="relative w-full text-left">
+                                                <label
+                                                    class="flex text-sm not-italic items-center font-medium text-primary-800 whitespace-nowrap justify-between">
+                                                    <div>Ville <span class="text-sm text-red-500"> * </span></div>
+                                                </label>
+                                                <div class="flex flex-col mt-1">
+                                                    <div
+                                                        class="h-9 py-px box-content p-0 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-200 rounded-md bg-white text-sm leading-snug outline-none max-h-10 w-full">
+                                                        <input v-model="form.companyCity" autofocus autocomplete="city" name="city"
+                                                               type="text"
+                                                               class="w-full absolute inset-0 outline-none appearance-none box-border border-0 text-sm font-sans bg-white rounded-md pl-3.5"
+                                                               placeholder="Nantes">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

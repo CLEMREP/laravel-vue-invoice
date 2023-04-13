@@ -25,25 +25,28 @@ class UpdateUserRequest extends FormRequest
                     'string',
                     'email',
                     'max:255',
-                    Rule::unique('users', 'email')->ignore($this->user)
+                    Rule::unique('users', 'email')->ignore($this->client)
                 ],
             'address' => ['required', 'string'],
             'city' => ['required', 'string'],
             'state' => ['required', 'string'],
             'zip' => ['required', 'regex:/^[0-9]{5}(?:-[0-9]{4})?$/'],
-            'companyName' => ['nullable', 'string', 'max:255', Rule::requiredIf($this->company)],
+            'companyName' => ['nullable', 'string', 'max:255', Rule::requiredIf($this->isCompany)],
             'companyEmail' =>
                 [
                     'nullable',
                     'string',
                     'email',
                     'max:255',
-                    Rule::unique('users', 'email')->ignore($this->user->company_email)
+                    Rule::unique('users', 'email')->ignore($this->user?->company->email)
                 ],
             'companyPhone' => ['nullable', 'regex:/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/'],
-            'companySiret' => ['nullable', 'numeric', 'digits:14', Rule::requiredIf($this->company)],
-            'company' => ['required', 'bool'],
-            'admin' => ['required', 'bool'],
+            'companySiret' => ['nullable', 'numeric', 'digits:14', Rule::requiredIf($this->isCompany)],
+            'companyAddress' => ['nullable', 'string', Rule::requiredIf($this->isCompany)],
+            'companyCity' => ['nullable', 'string', Rule::requiredIf($this->isCompany)],
+            'companyState' => ['nullable', 'string', Rule::requiredIf($this->isCompany)],
+            'companyZip' => ['nullable', 'regex:/^[0-9]{5}(?:-[0-9]{4})?$/', Rule::requiredIf($this->isCompany)],
+            'isCompany' => ['required', 'bool'],
         ];
     }
 

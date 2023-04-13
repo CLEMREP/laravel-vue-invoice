@@ -3,11 +3,11 @@ import DashboardLayout from '@/Pages/Dashboard/Layouts/DashboardLayout.vue';
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 
 defineProps({
-    users: Object,
+    clients: Object,
 })
 
 const form = useForm({
-    user: Object,
+    client: Object,
 });
 
 </script>
@@ -74,9 +74,6 @@ const form = useForm({
                                                     <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
                                                         Entreprise
                                                     </th>
-                                                    <th class="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
-                                                        Admin
-                                                    </th>
                                                     <th class="whitespace-nowrap px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
                                                         Actions
                                                     </th>
@@ -84,38 +81,21 @@ const form = useForm({
                                                 </thead>
                                                 <tbody>
 
-                                                <tr v-if="users.data.length > 0" v-for="user in users.data" :key="user.id" class="bg-white">
+                                                <tr v-if="clients.data.length > 0" v-for="client in clients.data" :key="client.id" class="bg-white">
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ user.firstname }}
+                                                        {{ client.firstname }}
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ user.lastname }}
+                                                        {{ client.lastname }}
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ user.email }}
+                                                        {{ client.email }}
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        {{ user.city }}
+                                                        {{ client.city }}
                                                     </td>
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        <div v-if="user.company" class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
-                                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            </svg>
-
-                                                            <h2 class="text-sm font-normal">Oui</h2>
-                                                        </div>
-
-                                                        <div v-else class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-red-500 bg-red-100/60">
-                                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            </svg>
-
-                                                            <h2 class="text-sm font-normal">Non</h2>
-                                                        </div>
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        <div v-if="user.admin" class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
+                                                        <div v-if="client.isCompany" class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
                                                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                             </svg>
@@ -134,7 +114,7 @@ const form = useForm({
                                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap text-right text-sm font-medium pl-0">
                                                         <div class="flex items-center justify-end h-full text-left">
 
-                                                            <form @submit.prevent="form.get(route('client.edit', user))">
+                                                            <form @submit.prevent="form.get(route('client.edit', client))">
                                                                 <button type="submit"
                                                                         class="focus:outline-none">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#818cf8"
@@ -146,7 +126,7 @@ const form = useForm({
                                                                 </button>
                                                             </form>
 
-                                                            <form @submit.prevent="form.post(route('client.destroy', user))">
+                                                            <form @submit.prevent="form.post(route('client.destroy', client))">
                                                                 <button type="submit"
                                                                         class="focus:outline-none">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#818cf8"
@@ -187,9 +167,9 @@ const form = useForm({
 
                                         </div>
 
-                                        <div v-if="users.data.length > 0" class="mt-3">
+                                        <div v-if="clients.data.length > 0" class="mt-3">
                                             <div class="flex">
-                                                <template v-for="link in users.links">
+                                                <template v-for="link in clients.links">
                                                     <Link v-if="link.url" :href="link.url" v-html="link.label"
                                                           class="relative inline-flex items-center px-4 py-2 mr-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"/>
                                                 </template>

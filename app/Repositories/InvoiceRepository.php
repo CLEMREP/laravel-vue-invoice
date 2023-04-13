@@ -13,9 +13,12 @@ class InvoiceRepository
     {
     }
 
-    public function listOfInvoices() : LengthAwarePaginator
+    public function listOfInvoices(User $user) : LengthAwarePaginator
     {
-        return $this->model->newQuery()->with(['client'])->paginate(5);
+        return $this->model->newQuery()
+            ->with(['client'])
+            ->where('editor_id', $user->getKey())
+            ->paginate(5);
     }
 
     public function createInvoice(Request $request) : Invoice
@@ -64,15 +67,23 @@ class InvoiceRepository
         return $invoice->delete();
     }
 
-    public function countInvoices() : int
+    public function countInvoices(User $user) : int
     {
-        return $this->model->newQuery()->count();
+        return $this->model
+            ->newQuery()
+            ->where('editor_id', $user->getKey())
+            ->count();
     }
 
-    public function totalMountInvoice() : string
+    public function totalMountInvoice(User $user) : string
     {
-        $invoiceTotal = $this->model->newQuery()->get('total')->all();
+        $invoiceTotal = $this->model
+            ->newQuery()
+            ->where('editor_id', $user->getKey())
+            ->get('total')
+            ->all();
         $sumTotal = 0;
+
         foreach ($invoiceTotal as $total) {
             $sumTotal += floatval(str_replace([' ', '€', ','], ['', '', '.'], $total['total']));
         }

@@ -2,33 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property string $email
  * @property string $firstname
  * @property string $lastname
  * @property string $phone
- * @property string $company_name
- * @property string $company_email
- * @property string $company_phone
- * @property string $company_siret
  * @property string $password
  * @property datetime $email_verified_at
  * @property string $remember_token
- * @property bool $admin
- * @property bool $company
+ * @property bool $isCompany
+ * @property int $company_id
  * @property int $address_id
  */
-class User extends Authenticatable
+class Client extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -38,20 +31,18 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname',
         'lastname',
-        'email',
         'phone',
+        'email',
         'password',
         'admin',
-        'company',
-        'company_name',
-        'company_email',
-        'company_phone',
-        'company_siret',
+        'isCompany',
+        'company_id',
         'address_id',
+        'user_id',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
@@ -61,40 +52,43 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * The attributes that are mass assignable.
      *
      * @var array<string, string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'admin' => 'boolean',
-        'address_id' => 'integer',
     ];
 
+    /**
+     * Get the owner of the customer.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    public function address() : BelongsTo
+    /**
+     * Get the address record associated with the customer.
+     */
+    public function address(): BelongsTo
     {
         return $this->belongsTo(Address::class);
     }
 
-    public function invoice() : HasMany
-    {
-        return $this->hasMany(Invoice::class);
-    }
-
     /**
-     * Get the company of the user
+     * Get the company record associated with the customer.
      */
-    public function company() : BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
     /**
-     * Get the clients of the user
+     * Method to know if the customer is a professional
      */
-    public function clients() : HasMany
+    public function isProfessional(): bool
     {
-        return $this->hasMany(Client::class);
+        return $this->isCompany;
     }
 }

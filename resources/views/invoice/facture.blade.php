@@ -27,19 +27,19 @@
                  src="{{asset('assets/img/logo_navbar.png')}}">
             <div class="mt-2">
                 <div class="text-lg font-semibold">
-                    {{ $editor->company_name }} EI
+                    {{ $editor->company->name }} EI
                 </div>
                 <div class="font-medium mt-1 text-sm">
-                    {{ $editor->company_email }}
+                    {{ $editor->company->email }}
                 </div>
                 <div class="font-medium text-sm">
-                    {{ $editor->company_phone }}
+                    {{ $editor->company->phone }}
                 </div>
                 <div class="font-medium text-sm">
                     {{ $editor->address->address . ', ' . $editor->address->zip . ', ' . $editor->address->city }}
                 </div>
                 <div class="font-medium text-sm">
-                    {{ $editor->company_siret }}
+                    {{ $editor->company->siret }}
                 </div>
             </div>
         </div>

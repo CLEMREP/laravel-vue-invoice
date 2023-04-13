@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Address;
+use App\Models\Company;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -17,14 +19,22 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $address = Address::insert([
+        $address = Address::factory()->create([
             'address' => '63 Boulevard du Tertre',
             'city' => 'Nantes',
             'zip' => '44100',
             'state' => 'France',
         ]);
 
-        User::insert([
+        $company = Company::factory()->create([
+            'name' => 'Binary-Cloud',
+            'email' => 'contact@clement-repel.fr',
+            'phone' => '07 61 38 20 28',
+            'siret' => '90468726600018',
+            'address_id' => $address->getKey(),
+        ]);
+
+        $user = User::factory()->create([
             'firstname' => 'Clément',
             'lastname' => 'REPEL',
             'email' => 'contact@clement-repel.fr',
@@ -33,16 +43,19 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
             'admin' => true,
-            'company' => true,
-            'company_name' => 'Binary-Cloud',
-            'company_email' => 'contact@clement-repel.fr',
-            'company_phone' => '07 61 38 20 28',
-            'company_siret' => '90468726600018',
+            'company_id' => $company->getKey(),
             'address_id' => $address->getKey(),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        //User::factory(10)->create();
+        Client::factory()->count(10)->create([
+            'user_id' => $user->getKey(),
+        ]);
+
+        $secondUser = User::factory()->create();
+        Client::factory()->count(10)->create([
+            'user_id' => $secondUser->getKey(),
+        ]);
     }
 }

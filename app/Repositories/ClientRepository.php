@@ -2,6 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Models\Address;
+use App\Models\Client;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -9,22 +12,25 @@ use Illuminate\Support\Facades\Hash;
 
 class ClientRepository
 {
-    public function __construct(private User $model)
+    public function __construct(private Client $model)
     {
     }
 
     public function listOfUsers(User $user) : LengthAwarePaginator
     {
-        return $this->model->newQuery()->where('id','!=', $user->getKey())->orderBy('admin', 'desc')->paginate(6);
+        return $this->model->newQuery()->where('user_id', $user->getKey())->paginate(6);
     }
 
 
-    public function getAllUsers() : Collection
+    public function getAllUsers(User $user) : Collection
     {
-        return $this->model->newQuery()->get();
+        return $this->model
+            ->newQuery()
+            ->where('user_id', $user->getKey())
+            ->get();
     }
 
-    public function storeUser(array $data, int $address_id) : User
+    public function storeClient(array $data, int $address_id, int|null $company_id) : Client
     {
         return $this->model->create([
             'firstname' => $data['firstname'],
@@ -36,44 +42,55 @@ class ClientRepository
             'company_email' => $data['companyEmail'] ?? '',
             'company_phone' => $data['companyPhone'] ?? '',
             'company_siret' => $data['companySiret'] ?? '',
-            'company' => $data['company'],
-            'admin' => $data['admin'],
+            'isCompany' => $data['isCompany'],
+            'user_id' => $data['user_id'],
+            'company_id' => $company_id,
             'address_id' => $address_id,
         ]);
     }
 
-    public function updateUser(array $data, User $user) : void
+    public function updateClient(array $data, Client $client) : void
     {
-        $user->update([
+        $client->update([
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
             'email' => $data['email'],
-            'company_name' => $data['companyName'] ?? '',
-            'company_email' => $data['companyEmail'] ?? '',
-            'company_phone' => $data['companyPhone'] ?? '',
-            'company_siret' => $data['companySiret'] ?? '',
-            'company' => $data['company'],
-            'admin' => $data['admin'],
+            'isCompany' => $data['isCompany'],
         ]);
 
-        if (!$data['company']) {
-            $user->update([
-                'company_name' => '',
-                'company_email' => '',
-                'company_phone' => '',
-                'company_siret' => '',
+
+        if ($data['isCompany']) {
+            $client->company()->update([
+                'name' => $data['companyName'] ?? '',
+                'email' => $data['companyEmail'] ?? '',
+                'phone' => $data['companyPhone'] ?? '',
+                'siret' => $data['companySiret'] ?? '',
+            ]);
+
+            $client->company->address->update([
+                'address' => $data['companyAddress'] ?? '',
+                'zip' => $data['companyZip'] ?? '',
+                'city' => $data['companyCity'] ?? '',
+                'state' => $data['companyState'] ?? '',
             ]);
         }
     }
 
-    public function deleteUser(User $user) : bool|null
+    public function deleteClient(Client $client) : bool|null
     {
-        return $user->delete();
+        /** @var Address $address */
+        $address = $client->address;
+
+        if ($client->isCompany) {
+            $client->company->address->delete();
+        }
+
+        return $address->delete();
     }
 
-    public function countUsers() : int
+    public function countClients(User $user) : int
     {
-        return $this->model->newQuery()->count()-1;
+        return $this->model->newQuery()->where('user_id', $user->getKey())->count();
     }
 }

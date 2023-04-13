@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('estimates', function (Blueprint $table) {
             $table->id();
-            $table->string('estimateId')->unique();
+            $table->string('estimateId');
             $table->string('createDate');
             $table->string('dueDate');
             $table->integer('discount');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->float('payment_penality_rate')->default(6.37);
             $table->string('notes');
             $table->integer('status')->default(0);
-            $table->foreignId('client_id')->references('id')->on('users');
+            $table->foreignId('client_id')->references('id')->on('clients');
             $table->foreignId('editor_id')->references('id')->on('users');
         });
     }

@@ -22,19 +22,19 @@ class AddressRepository
         ]);
     }
 
-    public function getAddressFromUser(int $userAddressID) : object|null
+    public function getAddressFromClient(int $clientAddressId) : object|null
     {
-        return $this->model->newQuery()->where('id', '=', $userAddressID)->first();
+        return $this->model->newQuery()->where('id', $clientAddressId)->first();
     }
 
-    public function updateAddress(array $data, int $userAddressID) : int
+    public function updateAddress(array $data, Address $address) : bool
     {
-        return $this->model->newQuery()->where('id', '=', $userAddressID)
-                            ->update([
-                                'address' => $data['address'],
-                                'zip' => $data['zip'],
-                                'city' => $data['city'],
-                                'state' => $data['state'],
-                            ]);
+        return $address
+            ->update([
+                'address' => $data['address'],
+                'zip' => $data['zip'],
+                'city' => $data['city'],
+                'state' => $data['state'],
+            ]);
     }
 }

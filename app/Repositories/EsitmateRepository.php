@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Estimate;
-use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
@@ -14,9 +13,12 @@ class EsitmateRepository
     {
     }
 
-    public function listOfEstimates() : LengthAwarePaginator
+    public function listOfEstimates(User $user) : LengthAwarePaginator
     {
-        return $this->model->newQuery()->with(['client'])->paginate(5);
+        return $this->model->newQuery()
+            ->with(['client'])
+            ->where('editor_id', $user->getKey())
+            ->paginate(5);
     }
 
     public function createEstimate(Request $request) : Estimate
@@ -45,9 +47,12 @@ class EsitmateRepository
         return $invoice->delete();
     }
 
-    public function countEstimates() : int
+    public function countEstimates(User $user) : int
     {
-        return $this->model->newQuery()->count();
+        return $this->model
+            ->newQuery()
+            ->where('editor_id', $user->getKey())
+            ->count();
     }
 
     public function totalMountEstimates() : string

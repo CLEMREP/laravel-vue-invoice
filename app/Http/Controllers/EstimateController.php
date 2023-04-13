@@ -6,11 +6,13 @@ use App\Http\Requests\StoreEstimateRequest;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Estimate;
+use App\Models\User;
 use App\Repositories\ClientRepository;
 use App\Repositories\EsitmateRepository;
 use App\Repositories\EstimateItemRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -26,7 +28,10 @@ class EstimateController extends Controller
 
     public function index() : Response
     {
-        $estimates = $this->estimateRepository->listOfEstimates();
+        /** @var User $connectedUser */
+        $connectedUser = Auth::user();
+
+        $estimates = $this->estimateRepository->listOfEstimates($connectedUser);
 
         foreach($estimates as $estimate) {
             $estimate['client'] = $estimate->client;
@@ -42,8 +47,11 @@ class EstimateController extends Controller
 
     public function create() : Response
     {
-        $users = $this->clientRepository->getAllUsers();
-        $countEstimate = $this->estimateRepository->countEstimates();
+        /** @var User $connectedUser */
+        $connectedUser = Auth::user();
+
+        $users = $this->clientRepository->getAllUsers($connectedUser);
+        $countEstimate = $this->estimateRepository->countEstimates($connectedUser);
         return Inertia::render(
             'Dashboard/Pages/Devis/Create',
             [

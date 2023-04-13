@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('invoiceId')->unique();
+            $table->string('invoiceId');
             $table->string('invoiceTitle')->nullable();
             $table->string('createDate');
             $table->string('executeDate');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->float('payment_penality_rate')->default(6.37);
             $table->string('notes');
             $table->integer('status')->default(0);
-            $table->foreignId('client_id')->references('id')->on('users');
+            $table->foreignId('client_id')->references('id')->on('clients');
             $table->foreignId('editor_id')->references('id')->on('users');
         });
     }

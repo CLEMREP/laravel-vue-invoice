@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
+use App\Models\User;
 use App\Repositories\ClientRepository;
 use App\Repositories\InvoiceItemRepository;
 use App\Repositories\InvoiceRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -25,7 +27,9 @@ class InvoiceController extends Controller
 
     public function index() : Response
     {
-        $invoices = $this->invoiceRepository->listOfInvoices();
+        /** @var User $connectedUser */
+        $connectedUser = Auth::user();
+        $invoices = $this->invoiceRepository->listOfInvoices($connectedUser);
 
         foreach($invoices as $invoice) {
             $invoice['client'] = $invoice->client;
@@ -40,8 +44,12 @@ class InvoiceController extends Controller
 
     public function create() : Response
     {
-        $users = $this->clientRepository->getAllUsers();
-        $countInvoice = $this->invoiceRepository->countInvoices();
+        /** @var User $connectedUser */
+        $connectedUser = Auth::user();
+
+        $users = $this->clientRepository->getAllUsers($connectedUser);
+        $countInvoice = $this->invoiceRepository->countInvoices($connectedUser);
+
         return Inertia::render(
             'Dashboard/Pages/Factures/Create',
             [
@@ -64,7 +72,10 @@ class InvoiceController extends Controller
 
     public function edit(Invoice $invoice) : Response
     {
-        $users = $this->clientRepository->getAllUsers();
+        /** @var User $connectedUser */
+        $connectedUser = Auth::user();
+
+        $users = $this->clientRepository->getAllUsers($connectedUser);
         $invoiceItems = $this->invoiceItemRepository->getItemsOfInvoice($invoice);
 
         return Inertia::render(

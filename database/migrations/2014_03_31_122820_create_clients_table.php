@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
@@ -21,15 +21,15 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('admin')->default(false);
-            $table->boolean('company')->default(false);
-            $table->string('company_name')->nullable();
-            $table->string('company_email')->nullable();
-            $table->string('company_phone')->nullable();
-            $table->string('company_siret')->nullable();
-            $table->foreignId('address_id')->references('id')->on('addresses')->onDelete('cascade');
+            $table->boolean('isCompany')->default(false);
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('address_id');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('clients');
     }
 };
